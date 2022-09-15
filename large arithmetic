@@ -16,6 +16,7 @@ public:
     BigInt(int);
     BigInt(std::string); // бросать исключение std::invalid_argument при ошибке CHEVO??
     BigInt(const BigInt&);
+    /*~BigInt();*/
 
     //operator int() const;
     operator std::string() const;
@@ -29,12 +30,15 @@ public:
     friend bool operator <=(const BigInt&,const BigInt&);
     friend bool operator >=(const BigInt&,const BigInt&);
 
-    BigInt& operator=(const BigInt&);
+    BigInt& operator =(const BigInt&);
     BigInt& operator +=(const BigInt&);
     BigInt& operator -=(const BigInt&);
     BigInt& operator *=(const BigInt&);
     BigInt& operator /=(const BigInt&);
     BigInt& operator %=(const BigInt&);
+  /*BigInt& operator ^=(const BigInt&);
+    BigInt& operator &=(const BigInt&);
+    BigInt& operator |=(const BigInt&);*/
 
     const BigInt operator +()const;
     const BigInt operator -()const;
@@ -49,7 +53,13 @@ public:
     void value_shift();
     friend const BigInt operator /(const BigInt&,const BigInt&);
     friend const BigInt operator %(const BigInt&,const BigInt&);
+    friend const BigInt operator ^(const BigInt&,const BigInt&);
+  /*  friend const BigInt operator &(const BigInt&,const BigInt&);
+    friend const BigInt operator |(const BigInt&,const BigInt&);*/
+
 };
+
+std::string to_binary(const BigInt& value);
 
 void BigInt::remove_lead_zero() {
     while(this->digits.size()>1 and this->digits.back()==0)
@@ -101,14 +111,17 @@ BigInt::BigInt(const BigInt& value) {
     this->_is_negative=value._is_negative;
 }
 
+/*BigInt::~BigInt() {
+    std::cout<<*this<<"  is DELETED\n";
+}*/
+
 /*
 BigInt::operator int() const{
     BigInt big_int_max(INT_MAX);
     BigInt result=(*this % big_int_max);
     int answer=result.digits[0];
     return answer;
-}
-*/
+}*/
 
 BigInt::operator std::string() const {
     std::stringstream ss;
@@ -229,25 +242,21 @@ const BigInt BigInt::operator -() const {
 }
 
 const BigInt BigInt::operator ++(){
-    BigInt one(1);
-    return (*this +=one);
+    return (*this +=1);
 }
 
 const BigInt BigInt::operator ++(int){
-    BigInt one(1);
-    *this+=one;
-    return *this-one;
+    *this+=1;
+    return *this-1;
 }
 
 const BigInt BigInt::operator --(){
-    BigInt one(1);
-    return (*this -=one);
+    return (*this -=1);
 }
 
 const BigInt BigInt::operator --(int){
-    BigInt one(1);
-    *this-=one;
-    return *this+one;
+    *this-=1;
+    return *this+1;
 }
 
 const BigInt operator +(const BigInt& left, const BigInt& right) {
@@ -372,10 +381,45 @@ const BigInt operator %(const BigInt& left,const BigInt& right)
     return result;
 }
 
+std::string to_binary(const BigInt& value) {
+    std::string result="";
+    for(ll i=0;i<value.digits.size();i++)
+    {
+        ll now=value.digits[i];
+        while(now)
+        {
+            if(now%2)result+='1';
+            else result+='0';
+            now/=2;
+        }
+    }
+    return result;
+}
+
+const BigInt operator ^(const BigInt& var1,const BigInt& var2){
+    BigInt result(0);
+
+    std::string left=to_binary(var1);
+    std::string right=to_binary(var2);
+    ll num_start=std::max(left.size(),right.size())-1;
+    ll num_add=std::min(left.size(),right.size());
+
+    for(ll i=num_start;i>=0;--i)
+    {
+        result*=2;
+        if(i>=num_add or left[i]!=right[i])
+            result+=1;
+    }
+
+    result._is_negative=var1._is_negative!=var2._is_negative;
+    return result;
+}
+//FIX XOR HERE SMT WRONG WITH BIG VALUES
+
 int main()
 {
     std::string first,last;
     std::cin>>first>>last;
     BigInt BigF(first),BigL(last);
-    std::cout<<++BigF<<' '<<BigF++<<' '<<++BigF;
+    std::cout<<(BigF^BigL);
 }
