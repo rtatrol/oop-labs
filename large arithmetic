@@ -36,9 +36,9 @@ public:
     BigInt& operator *=(const BigInt&);
     BigInt& operator /=(const BigInt&);
     BigInt& operator %=(const BigInt&);
-  /*BigInt& operator ^=(const BigInt&);
+    BigInt& operator ^=(const BigInt&);
     BigInt& operator &=(const BigInt&);
-    BigInt& operator |=(const BigInt&);*/
+    BigInt& operator |=(const BigInt&);
 
     const BigInt operator +()const;
     const BigInt operator -()const;
@@ -54,8 +54,8 @@ public:
     friend const BigInt operator /(const BigInt&,const BigInt&);
     friend const BigInt operator %(const BigInt&,const BigInt&);
     friend const BigInt operator ^(const BigInt&,const BigInt&);
-  /*  friend const BigInt operator &(const BigInt&,const BigInt&);
-    friend const BigInt operator |(const BigInt&,const BigInt&);*/
+    friend const BigInt operator &(const BigInt&,const BigInt&);
+    friend const BigInt operator |(const BigInt&,const BigInt&);
 
 };
 
@@ -231,6 +231,17 @@ BigInt& BigInt::operator %=(const BigInt& value){
     return *this=(*this % value);
 }
 
+BigInt& BigInt::operator ^=(const BigInt& value){
+    return *this=(*this ^ value);
+}
+
+BigInt& BigInt::operator &=(const BigInt& value){
+    return *this=(*this & value);
+}
+
+BigInt& BigInt::operator |=(const BigInt& value){
+    return *this=(*this | value);
+}
 const BigInt BigInt::operator +() const {
     return BigInt(*this);
 }
@@ -383,15 +394,13 @@ const BigInt operator %(const BigInt& left,const BigInt& right)
 
 std::string to_binary(const BigInt& value) {
     std::string result="";
-    for(ll i=0;i<value.digits.size();i++)
+    BigInt copy(value);
+
+    while(copy!=0)
     {
-        ll now=value.digits[i];
-        while(now)
-        {
-            if(now%2)result+='1';
-            else result+='0';
-            now/=2;
-        }
+        if((copy % 2)!=0)result+='1';
+        else result+='0';
+        copy/=2;
     }
     return result;
 }
@@ -401,25 +410,60 @@ const BigInt operator ^(const BigInt& var1,const BigInt& var2){
 
     std::string left=to_binary(var1);
     std::string right=to_binary(var2);
-    ll num_start=std::max(left.size(),right.size())-1;
-    ll num_add=std::min(left.size(),right.size());
+    if(left.size()>right.size())std::swap(left,right);
 
-    for(ll i=num_start;i>=0;--i)
+    for(ll i=right.size()-1;i>=0;--i)
     {
         result*=2;
-        if(i>=num_add or left[i]!=right[i])
-            result+=1;
+        if(i>=left.size() or left[i]!=right[i])
+        {
+            if(i>=left.size()){
+                if(right[i]=='1')
+                    result+=1;
+            }
+            else if(left[i]!=right[i])result+=1;
+        }
     }
-
-    result._is_negative=var1._is_negative!=var2._is_negative;
     return result;
 }
-//FIX XOR HERE SMT WRONG WITH BIG VALUES
+
+const BigInt operator &(const BigInt& var1,const BigInt& var2){
+    BigInt result(0);
+
+    std::string left,right;
+    left=to_binary(var1);
+    right=to_binary(var2);
+    if(left.size()>right.size())std::swap(left,right);
+
+    for(ll i=left.size()-1;i>=0;--i)
+    {
+        result*=2;
+        if(left[i]=='1' and right[i]=='1')
+            result+=1;
+    }
+    return result;
+}
+
+const BigInt operator |(const BigInt& var1,const BigInt& var2){
+    BigInt result(0);
+
+    std::string left=to_binary(var1),right=to_binary(var2);
+    if(left.size()>right.size())swap(left,right);
+
+    for(ll i=right.size()-1;i>=0;--i)
+    {
+        result*=2;
+        if(i>=left.size()){if(right[i]=='1')result+=1;}
+        else if(left[i]=='1' or right[i]=='1')result+=1;
+    }
+    return result;
+}
 
 int main()
 {
     std::string first,last;
     std::cin>>first>>last;
     BigInt BigF(first),BigL(last);
-    std::cout<<(BigF^BigL);
+    BigF^=BigL;
+    std::cout<<BigF;
 }
