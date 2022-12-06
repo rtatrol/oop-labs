@@ -1,0 +1,81 @@
+#ifndef GAMEOFLIVE_INPUTFILEPARSER_H
+#define GAMEOFLIVE_INPUTFILEPARSER_H
+
+#include <bits/stdc++.h>
+
+using namespace std;
+typedef long long ll;
+
+class inputParser {
+public:
+    bool gameMod;
+    string InputFileName;
+    ll iterations;
+    ll helpIterations;
+    string OutputFileName;
+    string helpOutputFileName;
+
+    string command;
+    string universeName;
+    pair<ll, ll> universeSize;
+    pair<string, string> Rules;
+    vector<pair<ll, ll>> cords;
+
+    inputParser(int argc, char *argv[]) {
+        helpIterations = 1;
+        helpOutputFileName = "";
+        if (argc == 1) {
+            gameMod = 0;
+            InputFileName = "input/sample1.txt";
+        } else {
+            gameMod = 1;
+            InputFileName = argv[1];
+            iterations = atoi(argv[3]);
+            OutputFileName = argv[argc - 1];
+        }
+
+        ifstream fin;
+        fin.open(InputFileName);
+        if (!fin.is_open()) {
+            cout << "You are not right in filename";
+            return;
+        }
+
+        fin >> universeName;
+
+        fin >> universeSize.first;
+        fin >> universeSize.second;
+
+        fin >> Rules.first;
+        fin >> Rules.second;
+
+        while (!fin.eof()) {
+            pair<ll, ll> now;
+            fin >> now.second >> now.first;
+            cords.push_back(now);
+        }
+    }
+
+    int commandUpdate() {
+        if (command == "dump") {
+            cin >> helpOutputFileName;
+            return 1;
+        }
+        if (command == "tick") {
+            cin >> helpIterations;
+            return 2;
+        }
+        if (command == "exit")
+            return 3;
+        if (command == "help") {
+            cout << "\n\ndump <filename> - save universe in file\n";
+            cout << "tick count 'i' iterations\n";
+            cout << "exit - close game\n";
+            cout << "help - print command manual\n\n\n";
+            return 4;
+        }
+        return 0;
+    }
+};
+
+#endif
