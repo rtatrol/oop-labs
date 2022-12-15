@@ -47,22 +47,27 @@ int InputParser::commandUpdate() {
     const std::string ExitCommand = "exit";
     const std::string HelpCommand = "help";
 
+    int resultDump=1;
+    int resultTick=2;
+    int resultExit=3;
+    int resultHelp=4;
+
     if (command == DumpCommand) {
         cin >> helpOutputFileName;
-        return 1;
+        return resultDump;
     }
     if (command == TickCommand) {
         cin >> helpIterations;
-        return 2;
+        return resultTick;
     }
     if (command == ExitCommand)
-        return 3;
+        return resultExit;
     if (command == HelpCommand) {
         cout << "\n\ndump <filename> - save universe in file\n";
         cout << "tick count 'i' iterations\n";
         cout << "exit - close game\n";
         cout << "help - print command manual\n\n\n";
-        return 4;
+        return resultHelp;
     }
     return 0;
 }

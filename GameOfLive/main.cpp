@@ -1,4 +1,4 @@
-#include "Objects.h"
+#include "Board.h"
 
 int main(int argc, char *argv[]) {
     InputParser cmdInput(argc, argv);
