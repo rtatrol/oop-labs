@@ -1,7 +1,6 @@
 #include "Board.h"
 
-
-Board::Board(int num) {
+liveSpace::Board::Board(int num) {
     for (ll i = 0; i < num; ++i) {
         gameFieldPrev.emplace_back(vector<Cage>());
         for (ll l = 0; l < num; ++l) {
@@ -12,7 +11,7 @@ Board::Board(int num) {
     }
 }
 
-Board::Board(InputParser &cmdInput) {
+liveSpace::Board::Board(InputParser &cmdInput) {
     pair<ll, ll> uniSize = cmdInput.returnUniSize();
     HEIGHT = uniSize.first + 1;
     WEIGHT = uniSize.second + 1;
@@ -24,7 +23,8 @@ Board::Board(InputParser &cmdInput) {
     for (ll i = 0; i < Rules.second.size(); i++)
         Survival.insert(Rules.second[i] - keyZero);
 
-    cageTextures.loadFromFile("images/UpdateTiles.png");
+    const std::string imagesFile="images/UpdateTiles.png";
+    cageTextures.loadFromFile(imagesFile);
     cageTextures.setSmooth(true);
 
     for (ll i = 0; i < HEIGHT; i++) {
@@ -56,7 +56,7 @@ Board::Board(InputParser &cmdInput) {
     }
 }
 
-ll Board::scoreAround(ll x, ll y) {
+ll liveSpace::Board::scoreAround(ll x, ll y) {
     ll result = 0;
     for (ll i = y - 1; i <= y + 1; i++)
         for (ll l = x - 1; l <= x + 1; l++)
@@ -66,15 +66,15 @@ ll Board::scoreAround(ll x, ll y) {
     return result;
 }
 
-bool Board::checkAliveAndSur(ll x, ll y, ll scoreThis) {
+bool liveSpace::Board::checkAliveAndSur(ll x, ll y, ll scoreThis) {
     return (gameFieldNext[y][x].returnAlive() and Survival.find(scoreThis) == Survival.end());
 }
 
-bool Board::checkDeathAndBorn(ll x, ll y, ll scoreThis) {
+bool liveSpace::Board::checkDeathAndBorn(ll x, ll y, ll scoreThis) {
     return (!gameFieldNext[y][x].returnAlive() and Birth.find(scoreThis) != Birth.end());
 }
 
-void Board::update() {
+void liveSpace::Board::update() {
     gameFieldNext = gameFieldPrev;
     for (ll i = 1; i < HEIGHT - 1; i++) {
         for (ll l = 1; l < WEIGHT - 1; l++) {
@@ -95,7 +95,7 @@ void Board::update() {
     gameFieldPrev = gameFieldNext;
 }
 
-void Board::outResult(InputParser &cmdInput, string file) {
+void liveSpace::Board::outResult(InputParser &cmdInput, string file) {
     ofstream fOut;
     fOut.open(file);
     fOut << cmdInput.returnUniName() << "\n";
@@ -109,7 +109,7 @@ void Board::outResult(InputParser &cmdInput, string file) {
     fOut.close();
 }
 
-void Board::gameMod1(InputParser &cmdInput, int &InputKeyCode) {
+void liveSpace::Board::gameMod1(InputParser &cmdInput, int &InputKeyCode) {
     while (!cmdInput.returnHelpIterations()) {
         string nowCommand;
         cin >> nowCommand;
@@ -125,14 +125,14 @@ void Board::gameMod1(InputParser &cmdInput, int &InputKeyCode) {
     cmdInput.subIterations(true);
 }
 
-ll Board::returnHeight() {
+ll liveSpace::Board::returnHeight() {
     return HEIGHT;
 }
 
-ll Board::returnWeight() {
+ll liveSpace::Board::returnWeight() {
     return WEIGHT;
 }
 
-vector<vector<Cage>> Board::returnGameFieldPrev() {
+vector<vector<liveSpace::Cage>> liveSpace::Board::returnGameFieldPrev() {
     return gameFieldPrev;
 }

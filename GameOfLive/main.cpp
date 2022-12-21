@@ -1,17 +1,18 @@
-#include "Board.h"
+#include "LiveSpace.h"
 
+using namespace liveSpace;
 int main(int argc, char *argv[]) {
     InputParser cmdInput(argc, argv);
     Board myBoard(cmdInput);
     sf::RenderWindow window(sf::VideoMode(720, 720), cmdInput.returnUniName());
 
-    Clock clock;
+    sf::Clock clock;
     bool isPaused = true;
     int InputKeyCode;
     bool gameMod = cmdInput.return_game_mod();
     ll Base = Cage::returnBase();
 
-    Texture cageTextures;
+    sf::Texture cageTextures;
     cageTextures.loadFromFile("images/UpdateTiles.png");
     cageTextures.setSmooth(true);
 
@@ -22,7 +23,7 @@ int main(int argc, char *argv[]) {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
-            if (event.type == Event::KeyPressed and event.key.code == Keyboard::Space)
+            if (event.type == sf::Event::KeyPressed and event.key.code == sf::Keyboard::Space)
                 isPaused = !isPaused;
         }
 
@@ -32,12 +33,12 @@ int main(int argc, char *argv[]) {
 
         for (ll i = 1; i < HEIGHT - 1; i++) {
             for (ll l = 1; l < WEIGHT - 1; l++) {
-                Sprite toDraw;
+                sf::Sprite toDraw;
                 toDraw.setTexture(cageTextures);
                 if (i % (HEIGHT - 1) == 0 or l % (WEIGHT - 1) == 0)
-                    toDraw.setTextureRect(IntRect(0, 0, Base, Base));
+                    toDraw.setTextureRect(sf::IntRect(0, 0, Base, Base));
                 else
-                    toDraw.setTextureRect(IntRect(boardNow[i][l].getSpriteNumb() * Base, 0, Base, Base));
+                    toDraw.setTextureRect(sf::IntRect(boardNow[i][l].getSpriteNumb() * Base, 0, Base, Base));
                 toDraw.setPosition((l - 1) * Base, (i - 1) * Base);
                 window.draw(toDraw);
             }

@@ -1,17 +1,18 @@
 #include "InputFileParser.h"
 
-InputParser::InputParser(int argc, char *argv[]) {
+liveSpace::InputParser::InputParser(int argc, char *argv[]) {
     const bool consoleStart = 1;
     helpIterations = 1;
     const int fileNameCount = 1;
     const int iterationsCount = 3;
     const int outCount = argc - 1;
-    const int defaultIter = 15;
+    const int defaultIter = 25;
+    std::string inputSampleFile="input/sample2.txt",outputSampleFile="output/sample2Solve.txt";
     helpOutputFileName = "";
     if (argc == 1) {
         gameMod = !consoleStart;
-        InputFileName = "input/sample2.txt";
-        OutputFileName = "output/sample2Solve.txt";
+        InputFileName = inputSampleFile;
+        OutputFileName = outputSampleFile;
         iterations = defaultIter;
     } else {
         gameMod = consoleStart;
@@ -41,7 +42,7 @@ InputParser::InputParser(int argc, char *argv[]) {
     }
 }
 
-int InputParser::commandUpdate() {
+int liveSpace::InputParser::commandUpdate() {
     const std::string TickCommand = "tick";
     const std::string DumpCommand = "dump";
     const std::string ExitCommand = "exit";
@@ -72,50 +73,50 @@ int InputParser::commandUpdate() {
     return 0;
 }
 
-ll InputParser::returnIterations() {
+ll liveSpace::InputParser::returnIterations() {
     return iterations;
 }
 
-ll InputParser::returnHelpIterations() {
+ll liveSpace::InputParser::returnHelpIterations() {
     return helpIterations;
 }
 
-string InputParser::returnOutput() {
+string liveSpace::InputParser::returnOutput() {
     return OutputFileName;
 }
 
-string InputParser::returnHelpOutput() {
+string liveSpace::InputParser::returnHelpOutput() {
     return helpOutputFileName;
 }
 
-void InputParser::subIterations(bool isHelp) {
+void liveSpace::InputParser::subIterations(bool isHelp) {
     isHelp == true ? this->helpIterations-- : this->iterations--;
 }
 
-pair<ll, ll> InputParser::returnUniSize() {
+pair<ll, ll> liveSpace::InputParser::returnUniSize() {
     return universeSize;
 }
 
-pair<string, string> InputParser::returnRules() {
+pair<string, string> liveSpace::InputParser::returnRules() {
     return Rules;
 }
 
-ll InputParser::returnCordsSize() {
+ll liveSpace::InputParser::returnCordsSize() {
     return cords.size();
 }
 
-vector<pair<ll, ll>> InputParser::returnCordsVector() {
+vector<pair<ll, ll>> liveSpace::InputParser::returnCordsVector() {
     return cords;
 }
 
-string InputParser::returnUniName() {
+string liveSpace::InputParser::returnUniName() {
     return universeName;
 }
 
-void InputParser::inputCommand(string newCommand) {
+void liveSpace::InputParser::inputCommand(string newCommand) {
     command = newCommand;
 }
 
-bool InputParser::return_game_mod() {
+bool liveSpace::InputParser::return_game_mod() {
     return gameMod;
 }

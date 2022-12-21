@@ -7,27 +7,26 @@
 #include <bits/stdc++.h>
 #include "SFML/Graphics.hpp"
 
-using namespace std;
 typedef long long ll;
+namespace liveSpace {
+    class Cage {
+        static const ll Base = 30;
+        bool isAlive;
+        ll spriteNumber;
+        sf::Vector2f Position;
 
-class Cage {
-    static const ll Base = 30;
-    bool isAlive;
-    ll spriteNumber;
-    sf::Vector2f Position;
+    public:
+        Cage(ll num, ll x, ll y);
 
-public:
-    Cage(ll num, ll x, ll y);
+        void update();
 
-    void update();
+        void kill();
 
-    void kill();
+        bool returnAlive();
 
-    bool returnAlive();
+        static const ll returnBase();
 
-    static const ll returnBase();
-
-    ll getSpriteNumb();
-};
-
+        ll getSpriteNumb();
+    };
+}
 #endif //GAMEOFLIVE_TEST_CAGE_H

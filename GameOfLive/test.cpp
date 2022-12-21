@@ -1,7 +1,8 @@
-#include "Board.h"
+#include "LiveSpace.h"
 
 #include "gtest.h"
 
+using namespace liveSpace;
 TEST(TestScore, test1) {
     ll size = 3;
     Board testBoard(size);

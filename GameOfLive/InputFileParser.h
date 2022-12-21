@@ -5,50 +5,50 @@
 
 using namespace std;
 typedef long long ll;
+namespace liveSpace {
+    class InputParser {
 
-class InputParser {
+        bool gameMod;
+        string InputFileName;
+        ll iterations;
+        ll helpIterations;
+        string OutputFileName;
+        string helpOutputFileName;
 
-    bool gameMod;
-    string InputFileName;
-    ll iterations;
-    ll helpIterations;
-    string OutputFileName;
-    string helpOutputFileName;
+        string command;
+        string universeName;
+        pair<ll, ll> universeSize;
+        pair<string, string> Rules;
+        vector<pair<ll, ll>> cords;
 
-    string command;
-    string universeName;
-    pair<ll, ll> universeSize;
-    pair<string, string> Rules;
-    vector<pair<ll, ll>> cords;
+    public:
+        InputParser(int argc, char *argv[]);
 
-public:
-    InputParser(int argc, char *argv[]);
+        int commandUpdate();
 
-    int commandUpdate();
+        ll returnIterations();
 
-    ll returnIterations();
+        ll returnHelpIterations();
 
-    ll returnHelpIterations();
+        string returnOutput();
 
-    string returnOutput();
+        string returnHelpOutput();
 
-    string returnHelpOutput();
+        void subIterations(bool isHelp);
 
-    void subIterations(bool isHelp);
+        pair<ll, ll> returnUniSize();
 
-    pair<ll, ll> returnUniSize();
+        pair<string, string> returnRules();
 
-    pair<string, string> returnRules();
+        ll returnCordsSize();
 
-    ll returnCordsSize();
+        vector<pair<ll, ll>> returnCordsVector();
 
-    vector<pair<ll, ll>> returnCordsVector();
+        string returnUniName();
 
-    string returnUniName();
+        void inputCommand(string newCommand);
 
-    void inputCommand(string newCommand);
-
-    bool return_game_mod();
-};
-
+        bool return_game_mod();
+    };
+}
 #endif

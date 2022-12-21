@@ -5,41 +5,40 @@
 #include "InputFileParser.h"
 #include "Cage.h"
 
-using namespace sf;
+namespace liveSpace {
+    class Board {
 
-class Board {
+        int WEIGHT, HEIGHT;
 
-    int WEIGHT, HEIGHT;
+        set<ll> Birth, Survival;
 
-    set<ll> Birth, Survival;
+        vector<vector<Cage>> gameFieldPrev;
+        vector<vector<Cage>> gameFieldNext;
 
-    vector<vector<Cage>> gameFieldPrev;
-    vector<vector<Cage>> gameFieldNext;
+        sf::Texture cageTextures;
 
-    Texture cageTextures;
+    public:
+        Board(int num);
 
-public:
-    Board(int num);
+        Board(InputParser &cmdInput);
 
-    Board(InputParser &cmdInput);
+        ll scoreAround(ll x, ll y);
 
-    ll scoreAround(ll x, ll y);
+        bool checkAliveAndSur(ll x, ll y, ll scoreThis);
 
-    bool checkAliveAndSur(ll x, ll y, ll scoreThis);
+        bool checkDeathAndBorn(ll x, ll y, ll scoreThis);
 
-    bool checkDeathAndBorn(ll x, ll y, ll scoreThis);
+        void update();
 
-    void update();
+        void outResult(InputParser &cmdInput, string file);
 
-    void outResult(InputParser &cmdInput, string file);
+        void gameMod1(InputParser &cmdInput, int &InputKeyCode);
 
-    void gameMod1(InputParser &cmdInput, int &InputKeyCode);
+        ll returnWeight();
 
-    ll returnWeight();
+        ll returnHeight();
 
-    ll returnHeight();
-
-    vector<vector<Cage>> returnGameFieldPrev();
-};
-
+        vector<vector<Cage>> returnGameFieldPrev();
+    };
+}
 #endif

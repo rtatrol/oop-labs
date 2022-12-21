@@ -3,14 +3,14 @@
 //
 #include "Cage.h"
 
-Cage::Cage(ll num, ll x, ll y) {
+liveSpace::Cage::Cage(ll num, ll x, ll y) {
     isAlive = num;
     spriteNumber = num;
     Position.x = x * Base;
     Position.y = y * Base;
 }
 
-void Cage::update() {
+void liveSpace::Cage::update() {
     isAlive = !isAlive;
     if (isAlive)
         spriteNumber = rand() % 3 + 1;
@@ -18,19 +18,19 @@ void Cage::update() {
         spriteNumber = 0;
 }
 
-void Cage::kill() {
+void liveSpace::Cage::kill() {
     isAlive = false;
     spriteNumber = 0;
 }
 
-bool Cage::returnAlive() {
+bool liveSpace::Cage::returnAlive() {
     return isAlive;
 }
 
-const ll Cage::returnBase() {
+const ll liveSpace::Cage::returnBase() {
     return Base;
 }
 
-ll Cage::getSpriteNumb() {
+ll liveSpace::Cage::getSpriteNumb() {
     return spriteNumber;
 }
