@@ -1,6 +1,6 @@
 #include "LiveSpace.h"
 
-#include "gtest.h"
+#include "googletest-main/googletest/include/gtest/gtest.h"
 
 TEST(TestScore, test1) {
     ll size = 3;
