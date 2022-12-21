@@ -1,19 +1,19 @@
 #include "LiveSpace.h"
-
-using namespace liveSpace;
 int main(int argc, char *argv[]) {
-    InputParser cmdInput(argc, argv);
-    Board myBoard(cmdInput);
+
+    liveSpace::InputParser cmdInput(argc, argv);
+    liveSpace::Board myBoard(cmdInput);
     sf::RenderWindow window(sf::VideoMode(720, 720), cmdInput.returnUniName());
 
     sf::Clock clock;
     bool isPaused = true;
     int InputKeyCode;
     bool gameMod = cmdInput.return_game_mod();
-    ll Base = Cage::returnBase();
+    ll Base = liveSpace::Cage::returnBase();
 
     sf::Texture cageTextures;
-    cageTextures.loadFromFile("images/UpdateTiles.png");
+    const std::string tilesFileName="images/UpdateTiles.png";
+    cageTextures.loadFromFile(tilesFileName);
     cageTextures.setSmooth(true);
 
     ll WEIGHT = myBoard.returnWeight(), HEIGHT = myBoard.returnHeight();
@@ -26,39 +26,16 @@ int main(int argc, char *argv[]) {
             if (event.type == sf::Event::KeyPressed and event.key.code == sf::Keyboard::Space)
                 isPaused = !isPaused;
         }
-
         window.clear();
+        vector <vector<liveSpace::Cage>> boardNow = myBoard.returnGameFieldPrev();
 
-        vector <vector<Cage>> boardNow = myBoard.returnGameFieldPrev();
-
-        for (ll i = 1; i < HEIGHT - 1; i++) {
-            for (ll l = 1; l < WEIGHT - 1; l++) {
-                sf::Sprite toDraw;
-                toDraw.setTexture(cageTextures);
-                if (i % (HEIGHT - 1) == 0 or l % (WEIGHT - 1) == 0)
-                    toDraw.setTextureRect(sf::IntRect(0, 0, Base, Base));
-                else
-                    toDraw.setTextureRect(sf::IntRect(boardNow[i][l].getSpriteNumb() * Base, 0, Base, Base));
-                toDraw.setPosition((l - 1) * Base, (i - 1) * Base);
-                window.draw(toDraw);
-            }
-        }
+        drawing(HEIGHT,WEIGHT,cageTextures,Base,window,boardNow);
 
         float time = clock.getElapsedTime().asSeconds();
-        if (time >= 0.2 and !isPaused) {
 
-            if (!cmdInput.returnIterations()) {
-                window.close();
-                break;
-            }
-            cmdInput.subIterations(false);
+        if(updateCommand(isPaused,time,cmdInput,myBoard,window,gameMod,clock,InputKeyCode))
+            break;
 
-            if (gameMod)
-                myBoard.gameMod1(cmdInput, InputKeyCode);
-
-            clock.restart();
-            myBoard.update();
-        }
         window.display();
     }
     myBoard.outResult(cmdInput, cmdInput.returnOutput());

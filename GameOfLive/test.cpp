@@ -2,11 +2,10 @@
 
 #include "gtest.h"
 
-using namespace liveSpace;
 TEST(TestScore, test1) {
     ll size = 3;
-    Board testBoard(size);
-    vector<vector<Cage>> boardNow = testBoard.returnGameFieldPrev();
+    liveSpace::Board testBoard(size);
+    vector<vector<liveSpace::Cage>> boardNow = testBoard.returnGameFieldPrev();
     ll result = 0;
     for (ll i = 0; i <= 2; i++)
         for (ll l = 0; l <= 2; l++)
@@ -18,15 +17,15 @@ TEST(TestScore, test1) {
 }
 
 TEST(TestAlive, test1) {
-    Cage testCage1(1, 0, 0);
-    Cage testCage0(0, 0, 0);
+    liveSpace::Cage testCage1(1, 0, 0);
+    liveSpace::Cage testCage0(0, 0, 0);
     testCage1.kill();
     EXPECT_TRUE(testCage1.returnAlive() == testCage0.returnAlive());
 }
 
 TEST(TestSample1, test1) {
-    InputParser testPars(1, NULL);
-    Board testBoard(testPars);
+    liveSpace::InputParser testPars(1, NULL);
+    liveSpace::Board testBoard(testPars);
     for (int i = 0; i < testPars.returnIterations(); ++i)
         testBoard.update();
     testBoard.outResult(testPars, "output/Sample2Solve.txt");
