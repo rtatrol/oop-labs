@@ -28,11 +28,23 @@ TEST(TestSample1, test1) {
     liveSpace::Board testBoard(testPars);
     for (int i = 0; i < testPars.returnIterations(); ++i)
         testBoard.update();
-    testBoard.outResult(testPars, "output/Sample2Solve.txt");
+    testBoard.outResult(testPars, "output/Sample1Solve.txt");
+    ifstream correctAnswer, programAnswer;
+    correctAnswer.open("output/TestSample1Solved.txt");
+    programAnswer.open("output/Sample1Solved.txt");
+
+    string cor = "", ans = "";
+    bool isTrue = 1;
+    while (getline(programAnswer, ans) and getline(correctAnswer, cor))
+        isTrue *= (ans == cor);
+    EXPECT_TRUE(isTrue);
+}
+
+TEST(TestSample2,test1)
+{
     ifstream correctAnswer, programAnswer;
     correctAnswer.open("output/TestSample2Solved.txt");
     programAnswer.open("output/Sample2Solved.txt");
-
     string cor = "", ans = "";
     bool isTrue = 1;
     while (getline(programAnswer, ans) and getline(correctAnswer, cor))
