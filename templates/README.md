@@ -1,1 +1,1 @@
-lab templates
+lab templates check
