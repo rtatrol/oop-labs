@@ -1,24 +1,41 @@
 #include "InputFileParser.h"
 
+namespace allConst
+{
+    const bool ConsoleStart = 1;
+    const int FileNameCount = 1;
+    const int IterationsCount = 3;
+
+    const int DefaultIter = 25;
+    int ResultDump=1;
+    int ResultTick=2;
+    int ResultExit=3;
+    int ResultHelp=4;
+
+    const std::string TickCommand = "tick";
+    const std::string DumpCommand = "dump";
+    const std::string ExitCommand = "exit";
+    const std::string HelpCommand = "help";
+    std::string InputSampleFile="input/sample2.txt";
+    std::string OutputSampleFile="output/sample2Solve.txt";
+}
+
 liveSpace::InputParser::InputParser(int argc, char *argv[]) {
-    const bool consoleStart = 1;
+
     helpIterations = 1;
-    const int fileNameCount = 1;
-    const int iterationsCount = 3;
-    const int outCount = argc - 1;
-    const int defaultIter = 25;
-    std::string inputSampleFile="input/sample2.txt",outputSampleFile="output/sample2Solve.txt";
+    const int OutCount = argc - 1;
+
     helpOutputFileName = "";
     if (argc == 1) {
-        gameMod = !consoleStart;
-        InputFileName = inputSampleFile;
-        OutputFileName = outputSampleFile;
-        iterations = defaultIter;
+        gameMod = !allConst::ConsoleStart;
+        InputFileName = allConst::InputSampleFile;
+        OutputFileName = allConst::OutputSampleFile;
+        iterations = allConst::DefaultIter;
     } else {
-        gameMod = consoleStart;
-        InputFileName = argv[fileNameCount];
-        iterations = atoi(argv[iterationsCount]);
-        OutputFileName = argv[outCount];
+        gameMod = allConst::ConsoleStart;
+        InputFileName = argv[allConst::FileNameCount];
+        iterations = atoi(argv[allConst::IterationsCount]);
+        OutputFileName = argv[OutCount];
     }
     ifstream fin;
     fin.open(InputFileName);
@@ -43,32 +60,23 @@ liveSpace::InputParser::InputParser(int argc, char *argv[]) {
 }
 
 int liveSpace::InputParser::commandUpdate() {
-    const std::string TickCommand = "tick";
-    const std::string DumpCommand = "dump";
-    const std::string ExitCommand = "exit";
-    const std::string HelpCommand = "help";
 
-    int resultDump=1;
-    int resultTick=2;
-    int resultExit=3;
-    int resultHelp=4;
-
-    if (command == DumpCommand) {
+    if (command == allConst::DumpCommand) {
         cin >> helpOutputFileName;
-        return resultDump;
+        return allConst::ResultDump;
     }
-    if (command == TickCommand) {
+    if (command == allConst::TickCommand) {
         cin >> helpIterations;
-        return resultTick;
+        return allConst::ResultTick;
     }
-    if (command == ExitCommand)
-        return resultExit;
-    if (command == HelpCommand) {
+    if (command == allConst::ExitCommand)
+        return allConst::ResultExit;
+    if (command == allConst::HelpCommand) {
         cout << "\n\ndump <filename> - save universe in file\n";
         cout << "tick count 'i' iterations\n";
         cout << "exit - close game\n";
         cout << "help - print command manual\n\n\n";
-        return resultHelp;
+        return allConst::ResultHelp;
     }
     return 0;
 }

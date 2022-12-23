@@ -12,8 +12,8 @@ int main(int argc, char *argv[]) {
     ll Base = liveSpace::Cage::returnBase();
 
     sf::Texture cageTextures;
-    const std::string tilesFileName="images/UpdateTiles.png";
-    cageTextures.loadFromFile(tilesFileName);
+
+    cageTextures.loadFromFile(liveSpace::tilesFileName);
     cageTextures.setSmooth(true);
 
     ll WEIGHT = myBoard.returnWeight(), HEIGHT = myBoard.returnHeight();

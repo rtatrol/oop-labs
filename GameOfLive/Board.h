@@ -8,7 +8,7 @@
 namespace liveSpace {
     class Board {
 
-        int WEIGHT, HEIGHT;
+        int WEIGHT, HEIGHT,UsableWeight,UsableHeight;
 
         set<ll> Birth, Survival;
 

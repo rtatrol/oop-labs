@@ -1,4 +1,3 @@
-
 #ifndef GAMEOFLIVE_TEST_LIVESPACE_H
 #define GAMEOFLIVE_TEST_LIVESPACE_H
 #include "Cage.h"
@@ -7,6 +6,8 @@
 
 namespace liveSpace
 {
+    const std::string tilesFileName="images/UpdateTiles.png";
+
 
     void drawing(ll HEIGHT,ll WEIGHT,sf::Texture cageTextures,ll Base,
                  sf::RenderWindow &window,vector <vector<liveSpace::Cage>> boardNow){
