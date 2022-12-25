@@ -1,15 +1,14 @@
 #include "Board.h"
 
-namespace allConst
-{
-    ll CodeHelpOut=1;
-    ll CodeReturnOut=3;
-    const std::string ImagesFile="images/UpdateTiles.png";
+namespace allConst {
+    ll CodeHelpOut = 1;
+    ll CodeReturnOut = 3;
+    const std::string ImagesFile = "images/UpdateTiles.png";
 }
 
 liveSpace::Board::Board(int num) {
     for (ll i = 0; i < num; ++i) {
-        gameFieldPrev.emplace_back(vector<Cage>());
+        gameFieldPrev.emplace_back(std::vector<Cage>());
         for (ll l = 0; l < num; ++l) {
             bool testAlive = rand() % 2;
             Cage now(testAlive, l, i);
@@ -19,14 +18,14 @@ liveSpace::Board::Board(int num) {
 }
 
 liveSpace::Board::Board(InputParser &cmdInput) {
-    pair<ll, ll> uniSize = cmdInput.returnUniSize();
+    std::pair<ll, ll> uniSize = cmdInput.returnUniSize();
     HEIGHT = uniSize.first + 1;
     WEIGHT = uniSize.second + 1;
-    UsableHeight=HEIGHT-1;
-    UsableWeight=WEIGHT-1;
+    UsableHeight = HEIGHT - 1;
+    UsableWeight = WEIGHT - 1;
 
-    int keyZero='0';
-    pair<string, string> Rules = cmdInput.returnRules();
+    int keyZero = '0';
+    std::pair<std::string, std::string> Rules = cmdInput.returnRules();
     for (ll i = 0; i < Rules.first.size(); i++)
         Birth.insert(Rules.first[i] - '0');
 
@@ -37,7 +36,7 @@ liveSpace::Board::Board(InputParser &cmdInput) {
     cageTextures.setSmooth(true);
 
     for (ll i = 0; i < HEIGHT; i++) {
-        gameFieldPrev.emplace_back(vector<Cage>());
+        gameFieldPrev.emplace_back(std::vector<Cage>());
         for (ll l = 0; l < WEIGHT; l++) {
             Cage now(0, l, i);
             gameFieldPrev[i].emplace_back(now);
@@ -49,18 +48,67 @@ liveSpace::Board::Board(InputParser &cmdInput) {
     gameFieldPrev[UsableHeight][0].kill();
     gameFieldPrev[UsableHeight][UsableWeight].kill();
 
-    vector<pair<ll, ll>> cords = cmdInput.returnCordsVector();
+    std::vector<std::pair<ll, ll>> cords = cmdInput.returnCordsVector();
     for (ll i = 0; i < cmdInput.returnCordsSize(); i++) {
         Cage now(1, cords[i].first, cords[i].second);
         gameFieldPrev[cords[i].second][cords[i].first] = now;
     }
 
     for (ll i = 1; i < UsableHeight; i++) {
-        gameFieldPrev[i][0] = gameFieldPrev[i][UsableWeight-1];
+        gameFieldPrev[i][0] = gameFieldPrev[i][UsableWeight - 1];
         gameFieldPrev[i][UsableWeight] = gameFieldPrev[i][1];
     }
     for (ll i = 1; i < UsableWeight; i++) {
-        gameFieldPrev[0][i] = gameFieldPrev[UsableHeight-1][i];
+        gameFieldPrev[0][i] = gameFieldPrev[UsableHeight - 1][i];
+        gameFieldPrev[UsableHeight][i] = gameFieldPrev[1][i];
+    }
+}
+
+void liveSpace::Board::UpdateUniverse(InputParser &cmdInput) {
+    std::pair<ll, ll> uniSize = cmdInput.returnUniSize();
+    HEIGHT = uniSize.first + 1;
+    WEIGHT = uniSize.second + 1;
+
+    UsableHeight = HEIGHT - 1;
+    UsableWeight = WEIGHT - 1;
+
+    int keyZero = '0';
+    std::pair<std::string, std::string> Rules = cmdInput.returnRules();
+    Birth.clear();
+    Survival.clear();
+    for (ll i = 0; i < Rules.first.size(); i++)
+        Birth.insert(Rules.first[i] - '0');
+
+    for (ll i = 0; i < Rules.second.size(); i++)
+        Survival.insert(Rules.second[i] - keyZero);
+
+
+    cageTextures.loadFromFile(allConst::ImagesFile);
+    cageTextures.setSmooth(true);
+
+    for (ll i = 0; i < HEIGHT; i++) {
+        for (ll l = 0; l < WEIGHT; l++) {
+            gameFieldPrev[i][l].kill();
+        }
+    }
+
+    gameFieldPrev[0][0].kill();
+    gameFieldPrev[0][UsableWeight].kill();
+    gameFieldPrev[UsableHeight][0].kill();
+    gameFieldPrev[UsableHeight][UsableWeight].kill();
+
+    std::vector<std::pair<ll, ll>> cords = cmdInput.returnCordsVector();
+    for (ll i = 0; i < cmdInput.returnCordsSize(); i++) {
+        Cage now(1, cords[i].first, cords[i].second);
+        gameFieldPrev[cords[i].second][cords[i].first] = now;
+    }
+
+    for (ll i = 1; i < UsableHeight; i++) {
+        gameFieldPrev[i][0] = gameFieldPrev[i][UsableWeight - 1];
+        gameFieldPrev[i][UsableWeight] = gameFieldPrev[i][1];
+    }
+    for (ll i = 1; i < UsableWeight; i++) {
+        gameFieldPrev[0][i] = gameFieldPrev[UsableHeight - 1][i];
         gameFieldPrev[UsableHeight][i] = gameFieldPrev[1][i];
     }
 }
@@ -94,18 +142,18 @@ void liveSpace::Board::update() {
     }
 
     for (ll i = 1; i < UsableHeight; i++) {
-        gameFieldNext[i][0] = gameFieldNext[i][UsableWeight-1];
+        gameFieldNext[i][0] = gameFieldNext[i][UsableWeight - 1];
         gameFieldNext[i][UsableHeight] = gameFieldNext[i][1];
     }
     for (ll i = 1; i < UsableWeight; i++) {
-        gameFieldNext[0][i] = gameFieldNext[UsableHeight-1][i];
+        gameFieldNext[0][i] = gameFieldNext[UsableHeight - 1][i];
         gameFieldNext[UsableHeight][i] = gameFieldNext[1][i];
     }
     gameFieldPrev = gameFieldNext;
 }
 
-void liveSpace::Board::outResult(InputParser &cmdInput, string file) {
-    ofstream fOut;
+void liveSpace::Board::outResult(InputParser &cmdInput, std::string file) {
+    std::ofstream fOut;
     fOut.open(file);
     fOut << cmdInput.returnUniName() << "\n";
     fOut << cmdInput.returnUniSize().first << ' ' << cmdInput.returnUniSize().second << "\n";
@@ -120,8 +168,8 @@ void liveSpace::Board::outResult(InputParser &cmdInput, string file) {
 
 void liveSpace::Board::gameMod1(InputParser &cmdInput, int &InputKeyCode) {
     while (!cmdInput.returnHelpIterations()) {
-        string nowCommand;
-        cin >> nowCommand;
+        std::string nowCommand;
+        std::cin >> nowCommand;
         cmdInput.inputCommand(nowCommand);
         InputKeyCode = cmdInput.commandUpdate();
         if (InputKeyCode == allConst::CodeHelpOut)
@@ -142,6 +190,6 @@ ll liveSpace::Board::returnWeight() {
     return WEIGHT;
 }
 
-vector<vector<liveSpace::Cage>> liveSpace::Board::returnGameFieldPrev() {
+std::vector<std::vector<liveSpace::Cage>> liveSpace::Board::returnGameFieldPrev() {
     return gameFieldPrev;
 }

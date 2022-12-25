@@ -8,12 +8,12 @@
 namespace liveSpace {
     class Board {
 
-        int WEIGHT, HEIGHT,UsableWeight,UsableHeight;
+        int WEIGHT, HEIGHT, UsableWeight, UsableHeight;
 
-        set<ll> Birth, Survival;
+        std::set<ll> Birth, Survival;
 
-        vector<vector<Cage>> gameFieldPrev;
-        vector<vector<Cage>> gameFieldNext;
+        std::vector<std::vector<Cage>> gameFieldPrev;
+        std::vector<std::vector<Cage>> gameFieldNext;
 
         sf::Texture cageTextures;
 
@@ -21,6 +21,8 @@ namespace liveSpace {
         Board(int num);
 
         Board(InputParser &cmdInput);
+
+        void UpdateUniverse(InputParser &cmdInput);
 
         ll scoreAround(ll x, ll y);
 
@@ -30,7 +32,7 @@ namespace liveSpace {
 
         void update();
 
-        void outResult(InputParser &cmdInput, string file);
+        void outResult(InputParser &cmdInput, std::string file);
 
         void gameMod1(InputParser &cmdInput, int &InputKeyCode);
 
@@ -38,7 +40,7 @@ namespace liveSpace {
 
         ll returnHeight();
 
-        vector<vector<Cage>> returnGameFieldPrev();
+        std::vector<std::vector<Cage>> returnGameFieldPrev();
     };
 }
 #endif

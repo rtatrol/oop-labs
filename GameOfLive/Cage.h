@@ -4,6 +4,7 @@
 
 #ifndef GAMEOFLIVE_TEST_CAGE_H
 #define GAMEOFLIVE_TEST_CAGE_H
+
 #include <bits/stdc++.h>
 #include "SFML/Graphics.hpp"
 

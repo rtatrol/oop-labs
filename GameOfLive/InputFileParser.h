@@ -3,26 +3,41 @@
 
 #include <bits/stdc++.h>
 
-using namespace std;
 typedef long long ll;
 namespace liveSpace {
     class InputParser {
 
         bool gameMod;
-        string InputFileName;
+        bool IsStartMenu;
+        bool IsAuthorMenu;
+        std::string InputFileName;
         ll iterations;
         ll helpIterations;
-        string OutputFileName;
-        string helpOutputFileName;
+        std::string OutputFileName;
+        std::string helpOutputFileName;
 
-        string command;
-        string universeName;
-        pair<ll, ll> universeSize;
-        pair<string, string> Rules;
-        vector<pair<ll, ll>> cords;
+        std::string command;
+        std::string universeName;
+        std::pair<ll, ll> universeSize;
+        std::pair<std::string, std::string> Rules;
+        std::vector<std::pair<ll, ll>> cords;
 
     public:
         InputParser(int argc, char *argv[]);
+
+        bool ReturnIsStartMenu();
+
+        bool ReturnIsAuthorMenu();
+
+        void UpdateUniverse();
+
+        void isStartUpdate();
+
+        void isAuthorUpdate();
+
+        void setInFile(std::string str);
+
+        void setOutFile(std::string str);
 
         int commandUpdate();
 
@@ -30,23 +45,23 @@ namespace liveSpace {
 
         ll returnHelpIterations();
 
-        string returnOutput();
+        std::string returnOutput();
 
-        string returnHelpOutput();
+        std::string returnHelpOutput();
 
         void subIterations(bool isHelp);
 
-        pair<ll, ll> returnUniSize();
+        std::pair<ll, ll> returnUniSize();
 
-        pair<string, string> returnRules();
+        std::pair<std::string, std::string> returnRules();
 
         ll returnCordsSize();
 
-        vector<pair<ll, ll>> returnCordsVector();
+        std::vector<std::pair<ll, ll>> returnCordsVector();
 
-        string returnUniName();
+        std::string returnUniName();
 
-        void inputCommand(string newCommand);
+        void inputCommand(std::string newCommand);
 
         bool return_game_mod();
     };

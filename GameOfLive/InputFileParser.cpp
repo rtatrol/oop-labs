@@ -1,23 +1,48 @@
 #include "InputFileParser.h"
 
-namespace allConst
-{
+namespace allConst {
     const bool ConsoleStart = 1;
     const int FileNameCount = 1;
     const int IterationsCount = 3;
 
     const int DefaultIter = 25;
-    int ResultDump=1;
-    int ResultTick=2;
-    int ResultExit=3;
-    int ResultHelp=4;
+    int ResultDump = 1;
+    int ResultTick = 2;
+    int ResultExit = 3;
+    int ResultHelp = 4;
+    bool IsStartMenu = true;
+    bool IsAuthorMenu = false;
 
     const std::string TickCommand = "tick";
     const std::string DumpCommand = "dump";
     const std::string ExitCommand = "exit";
     const std::string HelpCommand = "help";
-    std::string InputSampleFile="input/sample2.txt";
-    std::string OutputSampleFile="output/sample2Solve.txt";
+    std::string InputSampleFile = "input/sample1.txt";
+    std::string OutputSampleFile = "output/sample1Solve.txt";
+}
+
+bool liveSpace::InputParser::ReturnIsStartMenu() {
+    return IsStartMenu;
+}
+
+bool liveSpace::InputParser::ReturnIsAuthorMenu() {
+    return IsAuthorMenu;
+}
+
+void liveSpace::InputParser::isStartUpdate() {
+    this->IsStartMenu = !this->IsStartMenu;
+}
+
+void liveSpace::InputParser::isAuthorUpdate() {
+    this->IsAuthorMenu = !this->IsAuthorMenu;
+}
+
+void liveSpace::InputParser::setInFile(std::string str) {
+    InputFileName = str;
+}
+
+void liveSpace::InputParser::setOutFile(std::string str) {
+    OutputFileName = str;
 }
 
 liveSpace::InputParser::InputParser(int argc, char *argv[]) {
@@ -27,20 +52,24 @@ liveSpace::InputParser::InputParser(int argc, char *argv[]) {
 
     helpOutputFileName = "";
     if (argc == 1) {
+        IsStartMenu = allConst::IsStartMenu;
+        IsAuthorMenu = allConst::IsAuthorMenu;
         gameMod = !allConst::ConsoleStart;
         InputFileName = allConst::InputSampleFile;
         OutputFileName = allConst::OutputSampleFile;
         iterations = allConst::DefaultIter;
     } else {
+        IsStartMenu = !allConst::IsStartMenu;
+        IsAuthorMenu = allConst::IsAuthorMenu;
         gameMod = allConst::ConsoleStart;
         InputFileName = argv[allConst::FileNameCount];
         iterations = atoi(argv[allConst::IterationsCount]);
         OutputFileName = argv[OutCount];
     }
-    ifstream fin;
+    std::ifstream fin;
     fin.open(InputFileName);
     if (!fin.is_open()) {
-        cout << "You are not right in filename";
+        std::cout << "You are not right in filename";
         return;
     }
 
@@ -53,7 +82,30 @@ liveSpace::InputParser::InputParser(int argc, char *argv[]) {
     fin >> Rules.second;
 
     while (!fin.eof()) {
-        pair<ll, ll> now;
+        std::pair<ll, ll> now;
+        fin >> now.second >> now.first;
+        cords.push_back(now);
+    }
+}
+
+void liveSpace::InputParser::UpdateUniverse() {
+    std::ifstream fin;
+    fin.open(InputFileName);
+    if (!fin.is_open()) {
+        std::cout << "You are not right in filename";
+        return;
+    }
+
+    fin >> universeName;
+
+    fin >> universeSize.first;
+    fin >> universeSize.second;
+
+    fin >> Rules.first;
+    fin >> Rules.second;
+    cords.clear();
+    while (!fin.eof()) {
+        std::pair<ll, ll> now;
         fin >> now.second >> now.first;
         cords.push_back(now);
     }
@@ -62,20 +114,20 @@ liveSpace::InputParser::InputParser(int argc, char *argv[]) {
 int liveSpace::InputParser::commandUpdate() {
 
     if (command == allConst::DumpCommand) {
-        cin >> helpOutputFileName;
+        std::cin >> helpOutputFileName;
         return allConst::ResultDump;
     }
     if (command == allConst::TickCommand) {
-        cin >> helpIterations;
+        std::cin >> helpIterations;
         return allConst::ResultTick;
     }
     if (command == allConst::ExitCommand)
         return allConst::ResultExit;
     if (command == allConst::HelpCommand) {
-        cout << "\n\ndump <filename> - save universe in file\n";
-        cout << "tick count 'i' iterations\n";
-        cout << "exit - close game\n";
-        cout << "help - print command manual\n\n\n";
+        std::cout << "\n\ndump <filename> - save universe in file\n";
+        std::cout << "tick count 'i' iterations\n";
+        std::cout << "exit - close game\n";
+        std::cout << "help - print command manual\n\n\n";
         return allConst::ResultHelp;
     }
     return 0;
@@ -89,11 +141,11 @@ ll liveSpace::InputParser::returnHelpIterations() {
     return helpIterations;
 }
 
-string liveSpace::InputParser::returnOutput() {
+std::string liveSpace::InputParser::returnOutput() {
     return OutputFileName;
 }
 
-string liveSpace::InputParser::returnHelpOutput() {
+std::string liveSpace::InputParser::returnHelpOutput() {
     return helpOutputFileName;
 }
 
@@ -101,11 +153,11 @@ void liveSpace::InputParser::subIterations(bool isHelp) {
     isHelp == true ? this->helpIterations-- : this->iterations--;
 }
 
-pair<ll, ll> liveSpace::InputParser::returnUniSize() {
+std::pair<ll, ll> liveSpace::InputParser::returnUniSize() {
     return universeSize;
 }
 
-pair<string, string> liveSpace::InputParser::returnRules() {
+std::pair<std::string, std::string> liveSpace::InputParser::returnRules() {
     return Rules;
 }
 
@@ -113,15 +165,15 @@ ll liveSpace::InputParser::returnCordsSize() {
     return cords.size();
 }
 
-vector<pair<ll, ll>> liveSpace::InputParser::returnCordsVector() {
+std::vector<std::pair<ll, ll>> liveSpace::InputParser::returnCordsVector() {
     return cords;
 }
 
-string liveSpace::InputParser::returnUniName() {
+std::string liveSpace::InputParser::returnUniName() {
     return universeName;
 }
 
-void liveSpace::InputParser::inputCommand(string newCommand) {
+void liveSpace::InputParser::inputCommand(std::string newCommand) {
     command = newCommand;
 }
 
