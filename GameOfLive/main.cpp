@@ -37,9 +37,9 @@ int main(int argc, char *argv[]) {
             if (event.type == sf::Event::KeyPressed and event.key.code == sf::Keyboard::Space)
                 isPaused = !isPaused;
 
-            liveSpace::ChooseSample(cmdInput,window,event,myBoard);
-            liveSpace::IsAuthorOpen(event,cmdInput,window);
-           liveSpace::IsAuthorLeave(event,cmdInput,window);
+            liveSpace::ChooseSample(cmdInput, window, event, myBoard);
+            liveSpace::IsAuthorOpen(event, cmdInput, window);
+            liveSpace::IsAuthorLeave(event, cmdInput, window);
         }
         window.clear();
 

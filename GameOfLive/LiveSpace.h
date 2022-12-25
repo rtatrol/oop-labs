@@ -59,8 +59,7 @@ namespace liveSpace {
         return isBreak;
     }
 
-    void ChooseSample(InputParser &cmdInput,sf::RenderWindow &window,sf::Event &event,Board &myBoard)
-    {
+    void ChooseSample(InputParser &cmdInput, sf::RenderWindow &window, sf::Event &event, Board &myBoard) {
         if (event.type == sf::Event::MouseButtonPressed and event.key.code == sf::Mouse::Left and
             cmdInput.ReturnIsStartMenu()) {
 
@@ -78,8 +77,7 @@ namespace liveSpace {
         }
     }
 
-    void IsAuthorOpen(sf::Event &event,InputParser &cmdInput,sf::RenderWindow &window)
-    {
+    void IsAuthorOpen(sf::Event &event, InputParser &cmdInput, sf::RenderWindow &window) {
         if (event.type == sf::Event::MouseButtonPressed and event.key.code == sf::Mouse::Left and
             cmdInput.ReturnIsStartMenu()) {
             sf::Vector2i MousePos = sf::Mouse::getPosition(window);
@@ -90,8 +88,7 @@ namespace liveSpace {
         }
     }
 
-    void IsAuthorLeave(sf::Event &event,InputParser &cmdInput,sf::RenderWindow &window)
-    {
+    void IsAuthorLeave(sf::Event &event, InputParser &cmdInput, sf::RenderWindow &window) {
         if (event.type == sf::Event::MouseButtonPressed and event.key.code == sf::Mouse::Left and
             cmdInput.ReturnIsAuthorMenu()) {
             sf::Vector2i MousePos = sf::Mouse::getPosition(window);
