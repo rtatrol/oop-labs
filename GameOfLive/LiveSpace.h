@@ -58,5 +58,48 @@ namespace liveSpace {
         }
         return isBreak;
     }
+
+    void ChooseSample(InputParser &cmdInput,sf::RenderWindow &window,sf::Event &event,Board &myBoard)
+    {
+        if (event.type == sf::Event::MouseButtonPressed and event.key.code == sf::Mouse::Left and
+            cmdInput.ReturnIsStartMenu()) {
+
+            sf::Vector2i MousePos = sf::Mouse::getPosition(window);
+            if (liveSpace::Sample1Rect.getGlobalBounds().contains(MousePos.x, MousePos.y)) {
+                cmdInput.isStartUpdate();
+            }
+            if (liveSpace::Sample2Rect.getGlobalBounds().contains(MousePos.x, MousePos.y)) {
+                cmdInput.isStartUpdate();
+                cmdInput.setInFile(liveSpace::InputSampleFile2);
+                cmdInput.setOutFile(liveSpace::OutputSampleFile2);
+                cmdInput.UpdateUniverse();
+                myBoard.UpdateUniverse(cmdInput);
+            }
+        }
+    }
+
+    void IsAuthorOpen(sf::Event &event,InputParser &cmdInput,sf::RenderWindow &window)
+    {
+        if (event.type == sf::Event::MouseButtonPressed and event.key.code == sf::Mouse::Left and
+            cmdInput.ReturnIsStartMenu()) {
+            sf::Vector2i MousePos = sf::Mouse::getPosition(window);
+            if (liveSpace::AuthorRect.getGlobalBounds().contains(MousePos.x, MousePos.y)) {
+                cmdInput.isStartUpdate();
+                cmdInput.isAuthorUpdate();
+            }
+        }
+    }
+
+    void IsAuthorLeave(sf::Event &event,InputParser &cmdInput,sf::RenderWindow &window)
+    {
+        if (event.type == sf::Event::MouseButtonPressed and event.key.code == sf::Mouse::Left and
+            cmdInput.ReturnIsAuthorMenu()) {
+            sf::Vector2i MousePos = sf::Mouse::getPosition(window);
+            if (liveSpace::ExitRect.getGlobalBounds().contains(MousePos.x, MousePos.y)) {
+                cmdInput.isStartUpdate();
+                cmdInput.isAuthorUpdate();
+            }
+        }
+    }
 }
 #endif //GAMEOFLIVE_TEST_LIVESPACE_H

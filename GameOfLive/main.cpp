@@ -36,41 +36,10 @@ int main(int argc, char *argv[]) {
                 window.close();
             if (event.type == sf::Event::KeyPressed and event.key.code == sf::Keyboard::Space)
                 isPaused = !isPaused;
-            if (event.type == sf::Event::MouseButtonPressed and event.key.code == sf::Mouse::Left and
-                cmdInput.ReturnIsStartMenu()) {
 
-                sf::Vector2i MousePos = sf::Mouse::getPosition(window);
-                if (liveSpace::Sample1Rect.getGlobalBounds().contains(MousePos.x, MousePos.y)) {
-                    cmdInput.isStartUpdate();
-                    cmdInput.setInFile(liveSpace::InputSampleFile1);
-                    cmdInput.setOutFile(liveSpace::OutputSampleFile1);
-                    liveSpace::Board myBoard(cmdInput);
-                }
-                if (liveSpace::Sample2Rect.getGlobalBounds().contains(MousePos.x, MousePos.y)) {
-                    cmdInput.isStartUpdate();
-                    cmdInput.setInFile(liveSpace::InputSampleFile2);
-                    cmdInput.setOutFile(liveSpace::OutputSampleFile2);
-                    cmdInput.UpdateUniverse();
-
-                    myBoard.UpdateUniverse(cmdInput);
-                }
-            }
-            if (event.type == sf::Event::MouseButtonPressed and event.key.code == sf::Mouse::Left and
-                cmdInput.ReturnIsStartMenu()) {
-                sf::Vector2i MousePos = sf::Mouse::getPosition(window);
-                if (liveSpace::AuthorRect.getGlobalBounds().contains(MousePos.x, MousePos.y)) {
-                    cmdInput.isStartUpdate();
-                    cmdInput.isAuthorUpdate();
-                }
-            }
-            if (event.type == sf::Event::MouseButtonPressed and event.key.code == sf::Mouse::Left and
-                cmdInput.ReturnIsAuthorMenu()) {
-                sf::Vector2i MousePos = sf::Mouse::getPosition(window);
-                if (liveSpace::ExitRect.getGlobalBounds().contains(MousePos.x, MousePos.y)) {
-                    cmdInput.isStartUpdate();
-                    cmdInput.isAuthorUpdate();
-                }
-            }
+            liveSpace::ChooseSample(cmdInput,window,event,myBoard);
+            liveSpace::IsAuthorOpen(event,cmdInput,window);
+           liveSpace::IsAuthorLeave(event,cmdInput,window);
         }
         window.clear();
 
