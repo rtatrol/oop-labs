@@ -9,7 +9,7 @@ typedef long long ll;
 template<typename ... Args>
 class CSVParser {
 private:
-    std::ifstream input;
+    std::ifstream& input;
     size_t offset;
     int FileLength = -1;
     char fieldSeparator = '\"';
@@ -19,6 +19,7 @@ private:
 
     template<typename _CharT, typename _Traits, typename _Alloc>
     void getLine(std::basic_istream<_CharT, _Traits> &is, std::basic_string<_CharT, _Traits, _Alloc> &str) {
+
         str.clear();
         char c;
         while (is.get(c)) {
@@ -83,12 +84,14 @@ private:
         }
 
         std::tuple<Args...> operator*() {
+
             return parent.parse_line(buffer, index);
         }
     };
 
 public:
-    CSVParser(std::ifstream &ifs, size_t offset) {
+    CSVParser(std::ifstream &ifs, size_t offset) : input(ifs), offset(offset) {
+
         if (!ifs.is_open())
             throw std::invalid_argument("Can`t open file\n");
         if (offset >= getLength())
@@ -118,6 +121,11 @@ public:
 
     std::vector<std::string> read_line(std::string &line, int lineIndex) {
         std::vector<std::string> tableVec = {""};
+
+//        for(ll i=0;i<tableVec.size();i++)
+//            std::cout<<tableVec[i]<<' ';
+//        std::cout<<"\n";
+
         size_t vecIndex = 0;
         size_t prevSep = 0;
         bool isScreen = false;
@@ -144,7 +152,13 @@ public:
                 prevSep = i + 1;
             }
             if (now == lineSeparator and !isScreen) {
-                tableVec[vecIndex].push_back(now);
+                if(i>prevSep)
+                {
+                    tableVec[vecIndex]=line.substr(prevSep,i-prevSep);
+                    tableVec.emplace_back("");
+                    vecIndex++;
+                }
+                tableVec[vecIndex][0]=now;
                 break;
             }
         }
@@ -158,8 +172,8 @@ public:
         std::tuple<Args...> tableLine;
         std::vector<std::string> tableVec = read_line(line, lineIndex);
 
-        if (tableVec.size() != size)
-            throw std::invalid_argument("wrong size in line " + std::to_string(lineIndex) + "\n");
+//        if (tableVec.size() != size)
+//            throw std::invalid_argument("wrong size in line " + std::to_string(lineIndex) + "\n");
 
         auto iter = tableVec.begin();
         tupleUtils::parse<Args...>(tableLine, iter);
