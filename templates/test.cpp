@@ -8,8 +8,6 @@ TEST(Sample1,test1)
     std::ifstream answer("NoAnswerBase.txt");
 
     CSVPars::CSVParser<int, std::string,double> parser(file, 0);
-
-
     bool res=true;
     for (std::tuple<int, std::string,double> rs: parser) {
         std::string bufAnswer="",bufRs="";
