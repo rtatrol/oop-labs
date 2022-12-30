@@ -11,7 +11,7 @@ class CSVParser {
 private:
     std::ifstream &input;
     size_t offset;
-    int FileLength = -1;
+    int FileLength = 0;
     char fieldSeparator = '\"';
     char columnSeparator = ',';
     char lineSeparator = '\n';
@@ -19,7 +19,7 @@ private:
     void getLine(std::ifstream &is, std::string &str) {
         str.clear();
         char c;
-        while (is.get(c)) {
+        while (is.get(c) and c != EOF) {
             if (c == lineSeparator) {
                 str.push_back(c);
                 break;
@@ -29,19 +29,18 @@ private:
     }
 
     int getLength() {
-        if (FileLength == -1) {
+        if (FileLength == 0) {
             input.clear();
             input.seekg(0, std::ios::beg);
 
             std::string buf;
-            while (std::getline(input, buf))FileLength++;
+            for (FileLength = 0; getline(input, buf); FileLength++);
 
             input.clear();
             input.seekg(0, std::ios::beg);
         }
         return FileLength;
     }
-
 
     class CSVIterator {
     private:
@@ -72,6 +71,7 @@ private:
                 buffer = "";
                 isEnd = true;
             }
+            return *this;
         }
 
         bool operator==(const CSVIterator &dif) const {
@@ -90,14 +90,15 @@ private:
 public:
     CSVParser(std::ifstream &ifs, size_t offset) : input(ifs), offset(offset) {
 
-//        if (!ifs.is_open())
-//            throw std::invalid_argument("Can`t open file\n");
-//        if (offset >= getLength())
-//            throw std::invalid_argument("too long offset>file.size\n");
-//        if (offset < 0)
-//            throw std::invalid_argument("bad offset<0\n");
+        if (!ifs.is_open())
+            throw std::invalid_argument("Can`t open file\n");
+        if (offset >= getLength())
+            throw std::invalid_argument("too long offset>file.size\n");
+        if (offset < 0)
+            throw std::invalid_argument("bad offset<0\n");
     }
-    ~CSVParser(){
+
+    ~CSVParser() {
         input.close();
     }
 
@@ -108,17 +109,16 @@ public:
     }
 
     CSVIterator begin() {
-
-        CSVIterator start(input, offset + 1, *this);//here try just offset without 1
+        CSVIterator start(input, offset + 1, *this);
         return start;
     }
 
     CSVIterator end() {
-        CSVIterator end(input, 1, *this);
-        end.isEnd = true;
-        end.buffer = "EOF";
-        end.index = getLength();
-        return end;
+        CSVIterator finish(input, 1, *this);
+        finish.isEnd = true;
+        finish.buffer = "";
+        finish.index = getLength();
+        return finish;
     }
 
     std::vector<std::string> read_line(std::string &line, int lineIndex) {
@@ -164,17 +164,11 @@ public:
 
     std::tuple<Args...> parse_line(std::string &line, int lineIndex) {
         size_t size = sizeof...(Args);
-        if (line.empty())
+        if (line.empty() and lineIndex < FileLength)
             throw std::invalid_argument("Line is empty " + std::to_string(lineIndex) + "\n");
+
         std::tuple<Args...> tableLine;
         std::vector<std::string> tableVec = read_line(line, lineIndex);
-
-//        for (ll l = 0; l < tableVec.size(); l++)
-//            std::cout << tableVec[l] << ' ';
-//        std::cout << "\n";
-
-//        if (tableVec.size() != size)
-//            throw std::invalid_argument("wrong size in line " + std::to_string(lineIndex) + "\n");
 
         auto iter = tableVec.begin();
         tupleUtils::parse<Args...>(tableLine, iter);

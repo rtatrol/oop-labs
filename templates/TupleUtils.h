@@ -26,12 +26,6 @@ struct iterate<0, CallElement, Args...>
 };
 
 template<typename CallElement, typename... Args>
-struct iterate<-1, CallElement, Args...>
-{
-    static void next(std::tuple<Args...> &t, CallElement callback, std::ostream &stream){}
-};
-
-template<typename CallElement, typename... Args>
 void forAll(std::tuple<Args...> &t, CallElement call, std::ostream &stream)
 {
     int const t_size = std::tuple_size<std::tuple<Args...>>::value;
@@ -54,7 +48,6 @@ std::basic_ostream<_CharT, _Traits> &operator<<(std::basic_ostream<_CharT, _Trai
     return stream;
 }
 
-
 namespace tupleUtils {
     template<int index, typename CallElement, typename... Args>
     struct iterate {
@@ -69,11 +62,6 @@ namespace tupleUtils {
         static void next(std::tuple<Args...> &t, CallElement call, std::vector<std::string>::iterator &it) {
             call(std::get<0>(t), it);
         }
-    };
-
-    template<typename CallElement, typename... Args>
-    struct iterate<-1, CallElement, Args...> {
-        static void next(std::tuple<Args...> &t, CallElement call, std::vector<std::string>::iterator &it) {}
     };
 
     template<typename CallElement, typename ...Args>

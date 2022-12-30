@@ -1,15 +1,12 @@
 #include "CSVParser.h"
 
-using namespace std;
 int main() {
-    ifstream file("test.txt");
+    std::ifstream file("testBase.txt");//Or testUp.txt
 
-    CSVParser<int, string> parser(file, 0 /*skip first lines count*/);
-
-    for (tuple<int, string> rs: parser)
-    {
-        cout << rs << endl;
-    }
+    CSVParser<int, std::string,double> parser(file, 0);
+    //parser.setSeparators(',',';','\n');
+    for (std::tuple<int, std::string,double> rs: parser)
+        std::cout << rs << std::endl;
 
     return 0;
 }
