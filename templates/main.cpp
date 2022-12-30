@@ -2,7 +2,7 @@
 
 using namespace std;
 int main() {
-    ifstream file("test.csv");
+    ifstream file("test.txt");
 
     CSVParser<int, string> parser(file, 0 /*skip first lines count*/);
 
