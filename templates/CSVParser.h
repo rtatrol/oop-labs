@@ -172,8 +172,19 @@ namespace CSVPars {
             std::tuple<Args...> tableLine;
             std::vector<std::string> tableVec = read_line(line, lineIndex);
 
+            const int t_size = std::tuple_size<std::tuple<Args...>>::value;
+            if (t_size != tableVec.size())
+                throw std::invalid_argument("Invalid tuple size int line " + std::to_string(lineIndex) + '\n');
+
             auto iter = tableVec.begin();
-            tupleUtils::parse<Args...>(tableLine, iter);
+
+            try {
+                tupleUtils::parse<Args...>(tableLine, iter);
+            }
+            catch (std::exception &err) {
+                throw std::invalid_argument("Bad Format value on line " + std::to_string(lineIndex) + '\n');
+            }
+
             return tableLine;
         }
     };

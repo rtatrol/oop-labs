@@ -28,12 +28,24 @@ namespace tupleUtils {
         iterate<t_size - 1, CallElement, Args...>::next(t, call, it);
     }
 
+    template<typename Type>
+    bool isNoNEqual(Type first,std::string second){
+        std::stringstream ss;
+        ss<<first;
+        std::string result;
+        ss>>result;
+        return result!=second;
+    }
+
     struct call {
         template<typename Type>
         void operator()(Type &t, std::vector<std::string>::iterator &it) {
             std::stringstream ss;
             ss << *it;
             ss >> t;
+
+            if (isNoNEqual(t,*it))//HERE AAAAAAAAAA
+                throw std::exception();
             ++it;
         }
     };
