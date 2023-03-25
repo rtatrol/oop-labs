@@ -16,7 +16,7 @@ public class FactoryCalculator {
         }
         
         else if(args.length==1){
-            return new StackCalculatorFromFile();
+            return new StackCalculatorFromFile(args[1]);
         }
         else return null;
     }

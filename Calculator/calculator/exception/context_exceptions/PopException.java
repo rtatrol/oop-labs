@@ -1,8 +1,5 @@
 package calculator.exception.context_exceptions;
-
-import calculator.exception.CalculatorException;
-
-public class PopException extends CalculatorException {
+public class PopException extends ContextException {
     public PopException() {
         super();
     }

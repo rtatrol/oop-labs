@@ -10,7 +10,7 @@ public class ProgramContext {
     private final Stack<Double> stack;
     private final HashMap<String, Double> variables;
 
-    ProgramContext() {
+    public ProgramContext() {
         stack = new Stack<Double>();
         variables = new HashMap<String, Double>();
     }

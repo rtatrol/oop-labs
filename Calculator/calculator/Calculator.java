@@ -1,7 +1,7 @@
 package calculator;
 
-import calculator.exception.CalculatorExeption;
+import calculator.exception.CalculatorException;
 
 public interface Calculator {
-    double do_Calculation() throws CalculatorExeption;
+    double do_Calculation() throws CalculatorException;
 }

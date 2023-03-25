@@ -1,8 +1,5 @@
 package calculator.exception.context_exceptions;
-
-import calculator.exception.CalculatorException;
-
-public class PeekException extends CalculatorException {
+public class PeekException extends ContextException {
     public PeekException() {
         super();
     }
