@@ -4,14 +4,12 @@ import calculator.factory.FactoryCalculator;
 
 public class Main {
     public static void main(String[] args) {
-        try{
-            Calculator calculator=FactoryCalculator.Make(args);
-            assert calculator!=null;
+        try {
+            Calculator calculator = FactoryCalculator.Make(args);
+            assert calculator != null;
             calculator.do_Calculation();
-        }
-        catch(CalculatorException e)
-        {
-            System.err.println(e.getMessage());
+        } catch (CalculatorException e) {
+            e.printStackTrace();
         }
     }
 }

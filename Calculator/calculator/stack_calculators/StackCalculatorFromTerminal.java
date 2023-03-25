@@ -6,7 +6,6 @@ import calculator.Calculator;
 import calculator.context.ProgramContext;
 import calculator.exception.CalculatorException;
 import calculator.operations.Operation;
-import calculator.operations.Operation_IDs;
 import calculator.utilits.Command;
 import calculator.utilits.CommandParser;
 import calculator.factory.FartoryOperations;
@@ -24,6 +23,7 @@ public class StackCalculatorFromTerminal implements Calculator {
         try {
             Scanner scanner = new Scanner(System.in);
             String line = scanner.nextLine();
+            
 
             while (line != null && !line.equals("exit")) {
                 Command command = CommandParser.parce(line);
@@ -34,6 +34,7 @@ public class StackCalculatorFromTerminal implements Calculator {
                 line = scanner.nextLine();
                 number_line++;
             }
+            scanner.close();
 
         } catch (Exception e) {
             throw new CalculatorException("problems in line " + number_line, e);

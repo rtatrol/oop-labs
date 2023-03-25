@@ -1,7 +1,7 @@
 package calculator.utilits;
 
+import calculator.exception.parcer_exception.NoOperationException;
 import calculator.exception.parcer_exception.ParcerException;
-import calculator.exception.parcer_exception.ParcerFormatException;
 import calculator.exception.parcer_exception.ParcerNumberException;
 import calculator.operations.Operation_IDs;
 
@@ -11,25 +11,29 @@ public class CommandParser {
 
     public static Command parce(String str) throws ParcerException {
         int index = str.indexOf(SPACE);
+        String commName;
+        Operation_IDs commId;
+        String[] args = {};
+
         if (index == NONE) {
-            if (!OperationUtils.isOperationName(str))
-                throw new ParcerFormatException(str);
-            return new Command(OperationUtils.getIdByName(str), null);
+            commName = str;
+        } else {
+            commName = str.substring(0, index);
         }
 
-        String command = str.substring(0, index);
+        try {
+            commId = Operation_IDs.valueOf(commName);
+        } catch (IllegalArgumentException e) {
+            throw new ParcerException("parce command error ", new NoOperationException(commName));
+        }
 
-        if (!OperationUtils.isOperationName(command))
-            throw new ParcerFormatException(str);
-
-        if (command.equals(OperationUtils.getNameById(Operation_IDs.PUSH))) {
+        if (commName.equals(Operation_IDs.PUSH.name())) {
             String value = str.substring(index + 1);
             if (value.contains(SPACE))
                 throw new ParcerNumberException();
-            String[] args = { value };
-            return new Command(Operation_IDs.PUSH, args);
+            args = new String[] { value };
 
-        } else if (command.equals(OperationUtils.getNameById(Operation_IDs.DEFINE))) {
+        } else if (commName.equals(Operation_IDs.DEFINE.name())) {
             String variable, value;
 
             int index2 = str.indexOf(SPACE, index + 1);
@@ -39,9 +43,9 @@ public class CommandParser {
             if (value.contains(SPACE))
                 throw new ParcerNumberException();
 
-            String args[] = { variable, value };
-            return new Command(Operation_IDs.DEFINE, args);
+            args = new String[] { variable, value };
         }
-        throw null;
+
+        return new Command(commId, args);
     }
 }

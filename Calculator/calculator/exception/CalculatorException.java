@@ -11,7 +11,7 @@ public class CalculatorException extends Exception {
     }
 
     public CalculatorException(String s, Throwable cause) {
-        super(s,cause);
+        super(s+'\n'+cause.getMessage(),cause);
     }
 
 }
