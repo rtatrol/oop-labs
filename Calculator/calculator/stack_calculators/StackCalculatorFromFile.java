@@ -1,6 +1,7 @@
 package calculator.stack_calculators;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -15,13 +16,22 @@ import calculator.factory.FartoryOperations;
 public class StackCalculatorFromFile implements Calculator {
     String filename;
     ProgramContext context;
+    static final String configurationFileName = "Calculator/calculator/resources/configuration.txt";
 
-    public StackCalculatorFromFile(String name) {
+    public StackCalculatorFromFile(String name) throws CalculatorException {
+
+        try {
+            FileInputStream inputStream = new FileInputStream(configurationFileName);
+            FartoryOperations.getResourcesAsStream(inputStream);
+        } catch (Exception e) {
+            throw new CalculatorException("Unable to configure calculator", e);
+        }
+
         if (name == null)
             throw new NullPointerException();
 
         context = new ProgramContext();
-        filename = name;
+        this.filename = name;
     }
 
     @Override
@@ -32,7 +42,7 @@ public class StackCalculatorFromFile implements Calculator {
             FileReader fileReader = new FileReader(filename);
             BufferedReader reader = new BufferedReader(fileReader);
             String line = reader.readLine();
-            
+
             while (line != null) {
                 Command command = CommandParser.parce(line);
                 Operation op = FartoryOperations.make(command.getId());
