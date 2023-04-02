@@ -46,3 +46,17 @@
 21:48:29.648 [main] INFO  calculator.operations.Sqrt - executing operation
 21:48:29.654 [main] INFO  calculator.operations.Subtraction - executing operation
 21:48:29.660 [main] INFO  calculator.operations.Sum - executing operation
+22:53:34.600 [main] INFO  calculator.operations.Define - executing operation
+22:56:00.579 [main] INFO  calculator.operations.Define - executing operation
+23:03:08.528 [main] INFO  calculator.operations.Define - executing operation
+23:03:53.429 [main] INFO  calculator.operations.Define - executing operation
+23:03:53.568 [main] INFO  calculator.operations.Division - executing operation
+23:03:53.585 [main] INFO  calculator.operations.Multiply - executing operation
+23:03:53.587 [main] INFO  calculator.operations.Sqrt - executing operation
+23:03:53.593 [main] INFO  calculator.operations.Subtraction - executing operation
+23:03:53.596 [main] INFO  calculator.operations.Sum - executing operation
+23:03:56.560 [main] INFO  calculator.operations.Division - executing operation
+23:03:56.641 [main] INFO  calculator.operations.Multiply - executing operation
+23:03:56.646 [main] INFO  calculator.operations.Sqrt - executing operation
+23:03:56.649 [main] INFO  calculator.operations.Subtraction - executing operation
+23:03:56.655 [main] INFO  calculator.operations.Sum - executing operation

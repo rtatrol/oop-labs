@@ -40,7 +40,7 @@ public class StackCalculatorFromFile implements Calculator {
     @Override
     public double calculate() throws CalculatorException {
         int number_line = 1;
-        logger.info("start calculation from "+ filename);
+        logger.info("start calculation from " + filename);
         try {
 
             FileReader fileReader = new FileReader(filename);
@@ -65,7 +65,7 @@ public class StackCalculatorFromFile implements Calculator {
             logger.error("unable to read " + filename);
             throw new CalculatorException("cant read file", e);
         } catch (Exception e) {
-            logger.error("error in " + number_line +" line: " + e.getLocalizedMessage());
+            logger.error("error in " + number_line + " line: " + e.getLocalizedMessage());
             throw new CalculatorException("problems in line" + number_line, e);
         }
 

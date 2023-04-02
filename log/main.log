@@ -82,3 +82,11 @@
 22:47:15.974 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - read line
 22:47:17.868 [main] INFO  calculator.utilits.CommandParser - parsing line
 22:47:17.869 [main] ERROR calculator.stack_calculators.StackCalculatorFromTerminal - error in 4 line
+22:53:25.120 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - initializing calculator data
+22:53:25.127 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - start calculation
+22:53:25.127 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - read line
+22:56:29.961 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - initializing calculator data
+22:56:29.972 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - start calculation
+22:56:29.972 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - read line
+22:56:45.180 [main] INFO  calculator.utilits.CommandParser - parsing line
+22:56:45.180 [main] ERROR calculator.stack_calculators.StackCalculatorFromTerminal - error in 1 line
