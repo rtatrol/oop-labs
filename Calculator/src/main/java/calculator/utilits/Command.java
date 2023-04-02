@@ -1,17 +1,17 @@
 package calculator.utilits;
 
-import calculator.operations.Operation_IDs;
+import calculator.operations.OperationIds;
 
 public class Command {
-    Operation_IDs id;
+    OperationIds id;
     String[] args;
 
-    public Command(Operation_IDs id, String[] args) {
+    public Command(OperationIds id, String[] args) {
         this.args = args;
         this.id = id;
     }
 
-    public Operation_IDs getId() {
+    public OperationIds getId() {
         return id;
     }
 

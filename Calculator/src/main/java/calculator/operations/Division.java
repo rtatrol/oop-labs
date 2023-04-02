@@ -17,12 +17,12 @@ public class Division implements Operation {
         try{
             double var1=context.pop();
             double var2=context.pop();
-            if(var2==0)throw new ExecuteException(Operation_IDs.DIVISION, new DivisionByZero());
+            if(var2==0)throw new ExecuteException(OperationIds.DIVISION, new DivisionByZero());
 
             double result = var1/var2;
             context.push(result);
         }catch(ContextException e){
-            throw new ExecuteException(Operation_IDs.DIVISION, e);
+            throw new ExecuteException(OperationIds.DIVISION, e);
         }
     }
 }

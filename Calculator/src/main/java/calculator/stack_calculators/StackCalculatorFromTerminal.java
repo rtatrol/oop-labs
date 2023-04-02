@@ -17,7 +17,7 @@ import calculator.utilits.CommandParser;
 public class StackCalculatorFromTerminal implements Calculator {
     ProgramContext context;
     static final Logger logger = LogManager.getLogger(StackCalculatorFromTerminal.class.getName());
-    static final String configurationFileName = "Calculator/src/main/resources/configuration.txt";
+    static final String configurationFileName = "Calculator/configuration.txt";
 
     public StackCalculatorFromTerminal() throws CalculatorException {
         logger.info("initializing calculator data");
@@ -31,7 +31,7 @@ public class StackCalculatorFromTerminal implements Calculator {
     }
 
     @Override
-    public double do_Calculation() throws CalculatorException {
+    public double calculate() throws CalculatorException {
         int number_line = 1;
         logger.info("start calculation");
         try {

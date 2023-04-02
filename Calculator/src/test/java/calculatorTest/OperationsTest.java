@@ -45,8 +45,8 @@ public class OperationsTest {
     }
 
     @ParameterizedTest(name = "{index}  {0} test")
-    @EnumSource(value = Operation_IDs.class, names = {"DIVISION", "MULTIPLY", "SUM", "SUBTRACTION", "SQRT"})
-    void NumberOperationsTests(Operation_IDs id) throws OperationException, PeekException, PopException, CalculatorException, IOException {
+    @EnumSource(value = OperationIds.class, names = {"DIVISION", "MULTIPLY", "SUM", "SUBTRACTION", "SQRT"})
+    void NumberOperationsTests(OperationIds id) throws OperationException, PeekException, PopException, CalculatorException, IOException {
         try{
             FileInputStream in = new FileInputStream("src/main/resources/configuration.txt");
         calculator.factory.FactoryOperations.getResourcesAsStream(in);

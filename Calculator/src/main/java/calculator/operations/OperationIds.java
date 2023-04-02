@@ -1,6 +1,6 @@
 package calculator.operations;
 
-public enum Operation_IDs{
+public enum OperationIds{
     DEFINE,
     DIVISION,
     MULTIPLY,

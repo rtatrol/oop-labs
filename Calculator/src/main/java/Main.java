@@ -7,7 +7,7 @@ public class Main {
         try {
             Calculator calculator = FactoryCalculator.Make(args);
             assert calculator != null;
-            calculator.do_Calculation();
+            calculator.calculate();
         } catch (CalculatorException e) {
             e.printStackTrace();
         }

@@ -26,15 +26,15 @@ public class FactoryTest {
         calculator.factory.FactoryOperations.getResourcesAsStream(in);
         in.close();
     
-        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.DEFINE)).isInstanceOf(Define.class);
-        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.DIVISION)).isInstanceOf(Division.class);
-        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.MULTIPLY)).isInstanceOf(Multiply.class);
-        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.POP)).isInstanceOf(Pop.class);
-        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.PRINT)).isInstanceOf(Print.class);
-        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.PUSH)).isInstanceOf(Push.class);
-        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.SQRT)).isInstanceOf(Sqrt.class);
-        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.SUBTRACTION)).isInstanceOf(Subtraction.class);
-        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.SUM)).isInstanceOf(Sum.class);
+        assertThat(calculator.factory.FactoryOperations.make(OperationIds.DEFINE)).isInstanceOf(Define.class);
+        assertThat(calculator.factory.FactoryOperations.make(OperationIds.DIVISION)).isInstanceOf(Division.class);
+        assertThat(calculator.factory.FactoryOperations.make(OperationIds.MULTIPLY)).isInstanceOf(Multiply.class);
+        assertThat(calculator.factory.FactoryOperations.make(OperationIds.POP)).isInstanceOf(Pop.class);
+        assertThat(calculator.factory.FactoryOperations.make(OperationIds.PRINT)).isInstanceOf(Print.class);
+        assertThat(calculator.factory.FactoryOperations.make(OperationIds.PUSH)).isInstanceOf(Push.class);
+        assertThat(calculator.factory.FactoryOperations.make(OperationIds.SQRT)).isInstanceOf(Sqrt.class);
+        assertThat(calculator.factory.FactoryOperations.make(OperationIds.SUBTRACTION)).isInstanceOf(Subtraction.class);
+        assertThat(calculator.factory.FactoryOperations.make(OperationIds.SUM)).isInstanceOf(Sum.class);
         }
         catch(CalculatorException e){
             throw new CalculatorException("test error",e);

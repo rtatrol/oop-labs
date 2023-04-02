@@ -3,7 +3,7 @@ package calculator.utilits;
 import calculator.exception.parcer_exception.NoOperationException;
 import calculator.exception.parcer_exception.ParcerException;
 import calculator.exception.parcer_exception.ParcerNumberException;
-import calculator.operations.Operation_IDs;
+import calculator.operations.OperationIds;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +16,7 @@ public class CommandParser {
         logger.info("parsing line");
         int index = str.indexOf(SPACE);
         String commName;
-        Operation_IDs commId;
+        OperationIds commId;
         String[] args = {};
 
         if (index == NONE) {
@@ -26,18 +26,18 @@ public class CommandParser {
         }
 
         try {
-            commId = Operation_IDs.valueOf(commName);
+            commId = OperationIds.valueOf(commName);
         } catch (IllegalArgumentException e) {
             throw new ParcerException("parce command error ", new NoOperationException(commName));
         }
 
-        if (commName.equals(Operation_IDs.PUSH.name())) {
+        if (commName.equals(OperationIds.PUSH.name())) {
             String value = str.substring(index + 1);
             if (value.contains(SPACE))
                 throw new ParcerNumberException();
             args = new String[] { value };
 
-        } else if (commName.equals(Operation_IDs.DEFINE.name())) {
+        } else if (commName.equals(OperationIds.DEFINE.name())) {
             String variable, value;
 
             int index2 = str.indexOf(SPACE, index + 1);

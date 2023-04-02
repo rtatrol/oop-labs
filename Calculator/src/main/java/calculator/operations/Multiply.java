@@ -15,7 +15,7 @@ public class Multiply implements Operation {
             double result = context.pop() * context.pop();
             context.push(result);
         } catch (ContextException e) {
-            throw new ExecuteException(Operation_IDs.MULTIPLY, e);
+            throw new ExecuteException(OperationIds.MULTIPLY, e);
         }
 
     }

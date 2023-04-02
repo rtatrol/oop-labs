@@ -12,23 +12,19 @@ import calculator.operations.*;
 public class FactoryOperations {
 
     private static final String SPACE = " ";
-    static HashMap<Operation_IDs, Class<?>> idClassHashMap;
-
-    static {
-        idClassHashMap = new HashMap<>();
-    }
+    static HashMap<OperationIds, Class<?>> idClassHashMap=new HashMap<>();
 
     public static void getResourcesAsStream(InputStream stream) throws CalculatorException,IOException {
         InputStreamReader streamReader = new InputStreamReader(stream);
         BufferedReader reader = new BufferedReader(streamReader);
         String line;
         try {
-            for (int i = 0; i < Operation_IDs.values().length; i++) {
+            for (int i = 0; i < OperationIds.values().length; i++) {
                 line = reader.readLine();
                 String[] lineSplit = line.split(SPACE);
                 if (lineSplit.length != 2)
                     throw new CalculatorException("Bad configuration file format");
-                idClassHashMap.put(Operation_IDs.valueOf(lineSplit[0]), Class.forName(lineSplit[1]));
+                idClassHashMap.put(OperationIds.valueOf(lineSplit[0]), Class.forName(lineSplit[1]));
             }
             reader.close();
             streamReader.close();
@@ -37,18 +33,18 @@ public class FactoryOperations {
         }
     }
 
-    public static Operation make(Operation_IDs id) throws CalculatorException {
+    public static Operation make(OperationIds id) throws CalculatorException {
         try {
             return switch (id) {
-                case DEFINE -> (Operation) idClassHashMap.get(Operation_IDs.DEFINE).newInstance();
-                case DIVISION -> (Operation) idClassHashMap.get(Operation_IDs.DIVISION).newInstance();
-                case MULTIPLY -> (Operation) idClassHashMap.get(Operation_IDs.MULTIPLY).newInstance();
-                case POP -> (Operation) idClassHashMap.get(Operation_IDs.POP).newInstance();
-                case PRINT -> (Operation) idClassHashMap.get(Operation_IDs.PRINT).newInstance();
-                case PUSH -> (Operation) idClassHashMap.get(Operation_IDs.PUSH).newInstance();
-                case SQRT -> (Operation) idClassHashMap.get(Operation_IDs.SQRT).newInstance();
-                case SUBTRACTION -> (Operation) idClassHashMap.get(Operation_IDs.SUBTRACTION).newInstance();
-                case SUM -> (Operation) idClassHashMap.get(Operation_IDs.SUM).newInstance();
+                case DEFINE -> (Operation) idClassHashMap.get(OperationIds.DEFINE).newInstance();
+                case DIVISION -> (Operation) idClassHashMap.get(OperationIds.DIVISION).newInstance();
+                case MULTIPLY -> (Operation) idClassHashMap.get(OperationIds.MULTIPLY).newInstance();
+                case POP -> (Operation) idClassHashMap.get(OperationIds.POP).newInstance();
+                case PRINT -> (Operation) idClassHashMap.get(OperationIds.PRINT).newInstance();
+                case PUSH -> (Operation) idClassHashMap.get(OperationIds.PUSH).newInstance();
+                case SQRT -> (Operation) idClassHashMap.get(OperationIds.SQRT).newInstance();
+                case SUBTRACTION -> (Operation) idClassHashMap.get(OperationIds.SUBTRACTION).newInstance();
+                case SUM -> (Operation) idClassHashMap.get(OperationIds.SUM).newInstance();
                 default -> null;
             };
         } catch (Exception e) {

@@ -40,3 +40,9 @@
 21:18:20.316 [main] INFO  calculator.operations.Sqrt - executing operation
 21:18:20.321 [main] INFO  calculator.operations.Subtraction - executing operation
 21:18:20.326 [main] INFO  calculator.operations.Sum - executing operation
+21:48:29.449 [main] INFO  calculator.operations.Define - executing operation
+21:48:29.624 [main] INFO  calculator.operations.Division - executing operation
+21:48:29.642 [main] INFO  calculator.operations.Multiply - executing operation
+21:48:29.648 [main] INFO  calculator.operations.Sqrt - executing operation
+21:48:29.654 [main] INFO  calculator.operations.Subtraction - executing operation
+21:48:29.660 [main] INFO  calculator.operations.Sum - executing operation

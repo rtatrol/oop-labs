@@ -16,7 +16,7 @@ public class Print implements Operation {
             System.out.println(result);
         }
         catch(ContextException e){
-            throw new ExecuteException(Operation_IDs.PRINT, e);
+            throw new ExecuteException(OperationIds.PRINT, e);
         }
         
     }

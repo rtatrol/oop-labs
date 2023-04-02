@@ -19,7 +19,7 @@ public class StackCalculatorFromFile implements Calculator {
     String filename;
     ProgramContext context;
     static final Logger logger = LogManager.getLogger(StackCalculatorFromFile.class.getName());
-    static final String configurationFileName = "src/main/resources/configuration.txt";
+    static final String configurationFileName = "Calculator/configuration.txt";
 
     public StackCalculatorFromFile(String name) throws CalculatorException {
         logger.info("initializing calculator data");
@@ -38,7 +38,7 @@ public class StackCalculatorFromFile implements Calculator {
     }
 
     @Override
-    public double do_Calculation() throws CalculatorException {
+    public double calculate() throws CalculatorException {
         int number_line = 1;
         logger.info("start calculation from "+ filename);
         try {

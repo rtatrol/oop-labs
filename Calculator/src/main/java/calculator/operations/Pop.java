@@ -14,7 +14,7 @@ public class Pop implements Operation {
         try {
             context.pop();
         } catch (ContextException e) {
-            throw new ExecuteException(Operation_IDs.POP, e);
+            throw new ExecuteException(OperationIds.POP, e);
         }
     }
 }

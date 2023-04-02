@@ -16,11 +16,11 @@ public class Sqrt implements Operation {
         logger.info("executing operation");
         try {
             double var=context.pop();
-            if(var<0)throw new ExecuteException(Operation_IDs.SQRT, new NegativeSquareException());
+            if(var<0)throw new ExecuteException(OperationIds.SQRT, new NegativeSquareException());
             double result = Math.sqrt(var);
             context.push(result);
         } catch (ContextException e) {
-            throw new ExecuteException(Operation_IDs.SQRT, e);
+            throw new ExecuteException(OperationIds.SQRT, e);
         }
     }
 }
