@@ -1,0 +1,43 @@
+package calculatorTest;
+
+import calculator.exception.CalculatorException;
+import calculator.factory.FactoryException;
+import calculator.factory.*;
+import calculator.operations.*;
+import calculator.stack_calculators.*;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@DisplayName("Factory's tests")
+public class FactoryTest {
+
+    @Test
+    @DisplayName("Operation factory test")
+    void FactoryOperationsTest() throws CalculatorException, IOException {
+        try{
+        FileInputStream in = new FileInputStream("src/main/resources/configuration.txt");
+        calculator.factory.FactoryOperations.getResourcesAsStream(in);
+        in.close();
+    
+        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.DEFINE)).isInstanceOf(Define.class);
+        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.DIVISION)).isInstanceOf(Division.class);
+        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.MULTIPLY)).isInstanceOf(Multiply.class);
+        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.POP)).isInstanceOf(Pop.class);
+        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.PRINT)).isInstanceOf(Print.class);
+        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.PUSH)).isInstanceOf(Push.class);
+        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.SQRT)).isInstanceOf(Sqrt.class);
+        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.SUBTRACTION)).isInstanceOf(Subtraction.class);
+        assertThat(calculator.factory.FactoryOperations.make(Operation_IDs.SUM)).isInstanceOf(Sum.class);
+        }
+        catch(CalculatorException e){
+            throw new CalculatorException("test error",e);
+        }
+    }
+}
