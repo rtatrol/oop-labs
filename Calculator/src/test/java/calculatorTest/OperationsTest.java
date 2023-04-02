@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DisplayName("Operations tests")
 public class OperationsTest {
     ProgramContext context = new ProgramContext();
+    
     @Test
     @DisplayName("Define operation test")
     void DefineTest() throws OperationException {
