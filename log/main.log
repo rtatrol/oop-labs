@@ -156,3 +156,15 @@
 12:13:09.053 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - initializing calculator data
 12:13:09.062 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - start calculation
 12:13:09.062 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - read line
+15:16:36.390 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - initializing calculator data
+15:16:36.401 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - start calculation
+15:16:36.401 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - read line
+15:16:43.195 [main] INFO  calculator.utilits.CommandParser - parsing line
+15:16:43.196 [main] INFO  calculator.operations.Push - executing operation
+15:16:43.197 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - read line
+15:16:45.236 [main] INFO  calculator.utilits.CommandParser - parsing line
+15:16:45.237 [main] INFO  calculator.operations.Sqrt - executing operation
+15:16:45.237 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - read line
+15:16:48.967 [main] INFO  calculator.utilits.CommandParser - parsing line
+15:16:48.967 [main] INFO  calculator.operations.Print - executing operation
+15:16:48.969 [main] INFO  calculator.stack_calculators.StackCalculatorFromTerminal - read line
