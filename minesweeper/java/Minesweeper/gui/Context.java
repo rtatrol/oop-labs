@@ -11,6 +11,11 @@ public class Context {
 
     private boolean needToRestart = false;
 
+    public Context(Minesweeper game, MyWin win){
+        this.game = game;
+        this.win = win;
+    }
+
     public boolean isClick() {
         return isClick;
     }
@@ -19,15 +24,8 @@ public class Context {
         isClick = click;
     }
 
-
     public Minesweeper getGame() {
         return game;
-    }
-
-
-    public Context(Minesweeper game, MyWin win){
-        this.game = game;
-        this.win = win;
     }
 
     public boolean isNeedToRestart() {

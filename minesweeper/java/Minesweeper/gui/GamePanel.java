@@ -94,6 +94,19 @@ public class GamePanel extends JPanel {
 
     }
 
+     public void updatePanel() {
+        minesPanel.removeAll();
+        minesPanel.setLayout(new GridLayout(0, context.getGame().getLinesLength()));
+        buttons = new FieldButton[context.getGame().getColumnsLength()][context.getGame().getLinesLength()];
+        for (int i = 0; i < context.getGame().getColumnsLength(); i++) {
+            for (int j = 0; j < context.getGame().getLinesLength(); j++) {
+                buttons[i][j] = new FieldButton(i, j, context);
+                minesPanel.add(buttons[i][j]);
+            }
+        }
+        updateUI();
+    }
+
     public void updateView() {
         int[][] field = context.getGame().getMinesAround();
         for (int i = 0; i < context.getGame().getColumnsLength(); i++) {
@@ -109,19 +122,6 @@ public class GamePanel extends JPanel {
                 }
             }
         }
-    }
-
-    public void updatePanel() {
-        minesPanel.removeAll();
-        minesPanel.setLayout(new GridLayout(0, context.getGame().getLinesLength()));
-        buttons = new FieldButton[context.getGame().getColumnsLength()][context.getGame().getLinesLength()];
-        for (int i = 0; i < context.getGame().getColumnsLength(); i++) {
-            for (int j = 0; j < context.getGame().getLinesLength(); j++) {
-                buttons[i][j] = new FieldButton(i, j, context);
-                minesPanel.add(buttons[i][j]);
-            }
-        }
-        updateUI();
     }
 
     class CurrentTask extends TimerTask {
