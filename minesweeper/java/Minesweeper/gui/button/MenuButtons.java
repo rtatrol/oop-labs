@@ -13,7 +13,6 @@ public class MenuButtons extends JButton {
     }
 
     public enum MenuButtonsType {
-        FLAG("flag"),
         RESTART("restart"),
         SETTINGS("settings"),
         RECORD_TABLE("record table");
