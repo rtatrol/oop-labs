@@ -8,7 +8,6 @@ import minesweeper.java.Minesweeper.utilits.Pair;
 
 import java.util.Arrays;
 
-
 public class Minesweeper {
     public static final int NOT_OPENED = 9;
     public static final int FLAG = 10;
@@ -23,8 +22,8 @@ public class Minesweeper {
 
     private static final int recordsTableSize = 10;
 
-
     private int[][] minesAround;
+
     public final int[][] getMinesAround() {
         return minesAround;
     }
@@ -103,7 +102,8 @@ public class Minesweeper {
     public int click(int i, int j) throws MinesweeperException {
         if (j >= configuration.getLineLength() || i >= configuration.getColumnLength() || i < 0 || j < 0)
             throw new IndexOutOfBoundException(i, j, configuration);
-        if (isFirstClick) generateField(i, j);
+        if (isFirstClick)
+            generateField(i, j);
 
         minesAround[i][j] = field.openCell(i, j);
         if (minesAround[i][j] == Field.BOOM) {
@@ -114,29 +114,36 @@ public class Minesweeper {
     }
 
     public boolean flag(int x, int y) throws MinesweeperException {
-        if (isFirstClick) generateField(x, y);
+        if (isFirstClick)
+            generateField(x, y);
 
-        if (field.getUsedFlags() == field.getConfiguration().getMinesNumber()) throw new UsedAllFlagsException();
+        if (field.getUsedFlags() == field.getConfiguration().getMinesNumber())
+            throw new UsedAllFlagsException();
         int res = field.flag(x, y);
         isFirstClick = res == 0;
         minesAround[x][y] = FLAG;
-        if (isFirstClick) endTime = System.currentTimeMillis();
+        if (isFirstClick)
+            endTime = System.currentTimeMillis();
         return res == 0;
     }
 
     public void unFlag(int x, int y) throws MinesweeperException {
-        if (isFirstClick) return;
+        if (isFirstClick)
+            return;
         int res = field.unflag(x, y);
         minesAround[x][y] = NOT_OPENED;
     }
-    
+
     public double getTime() {
-        if (endTime >= startTime) return (endTime - startTime) * 0.001;
-        else return (System.currentTimeMillis() - startTime) * 0.001;
+        if (endTime >= startTime)
+            return (endTime - startTime) * 0.001;
+        else
+            return (System.currentTimeMillis() - startTime) * 0.001;
     }
 
     public void updateRecord(Pair pair) {
-        if (recordsTable[recordsTable.length - 1].getSecond() != Pair.EMPTY && recordsTable[recordsTable.length - 1].getSecond() <= pair.getSecond())
+        if (recordsTable[recordsTable.length - 1].getSecond() != Pair.EMPTY
+                && recordsTable[recordsTable.length - 1].getSecond() <= pair.getSecond())
             return;
         for (int i = 0; i < recordsTable.length; i++) {
             if (recordsTable[i].getSecond() > pair.getSecond()) {
