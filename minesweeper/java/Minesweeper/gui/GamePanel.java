@@ -34,16 +34,20 @@ public class GamePanel extends JPanel {
             numberImageMap = new HashMap<>();
             for (int i = 0; i <= 8; i++) {
                 numberImageMap.put(i, ImageIO.read(
-                    Objects.requireNonNull(GamePanel.class.getResource("/minesweeper/resources/minesweeper/gui/" + i + ".png"))));
+                        Objects.requireNonNull(
+                                GamePanel.class.getResource("/minesweeper/resources/minesweeper/gui/" + i + ".png"))));
             }
             numberImageMap.put(FLAG, ImageIO.read(
-                Objects.requireNonNull(GamePanel.class.getResource("/minesweeper/resources/minesweeper/gui/flag.png"))));
+                    Objects.requireNonNull(
+                            GamePanel.class.getResource("/minesweeper/resources/minesweeper/gui/flag.png"))));
 
             numberImageMap.put(BOOM, ImageIO.read(
-                Objects.requireNonNull(GamePanel.class.getResource("/minesweeper/resources/minesweeper/gui/mine.png"))));
+                    Objects.requireNonNull(
+                            GamePanel.class.getResource("/minesweeper/resources/minesweeper/gui/mine.png"))));
 
             numberImageMap.put(NOT_OPENED, ImageIO.read(
-                Objects.requireNonNull(GamePanel.class.getResource("/minesweeper/resources/minesweeper/gui/notOpen.png"))));
+                    Objects.requireNonNull(
+                            GamePanel.class.getResource("/minesweeper/resources/minesweeper/gui/notOpen.png"))));
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -51,10 +55,9 @@ public class GamePanel extends JPanel {
 
     }
 
-
     public GamePanel(Context context) {
         setLayout(new BorderLayout());
-        
+
         this.context = context;
         buttons = new FieldButton[context.getGame().getColumnsLength()][context.getGame().getLinesLength()];
 
@@ -70,12 +73,10 @@ public class GamePanel extends JPanel {
 
         add(jp);
 
-
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(new Menu(context));
         context.getWin().setJMenuBar(menuBar);
         JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
 
         JTextField timer = new JTextField(FIELD_WIDTH);
         timer.setText("0");
@@ -88,13 +89,12 @@ public class GamePanel extends JPanel {
         northPanel.add(timer);
         add(northPanel, BorderLayout.NORTH);
 
-
         Timer timer1 = new Timer();
         timer1.scheduleAtFixedRate(new CurrentTask(), DELAY, PERIOD);
 
     }
 
-     public void updatePanel() {
+    public void updatePanel() {
         minesPanel.removeAll();
         minesPanel.setLayout(new GridLayout(0, context.getGame().getLinesLength()));
         buttons = new FieldButton[context.getGame().getColumnsLength()][context.getGame().getLinesLength()];
