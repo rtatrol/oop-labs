@@ -17,16 +17,20 @@ public class MyWin extends JFrame {
         curPanel = new GamePanel(context);
         standardPanel.add(curPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension dimension = toolkit.getScreenSize();
+        double defaultWidth = dimension.width / 2.5;
+        double defaultHeight = dimension.height / 2.5;
+        setBounds((int) defaultWidth, (int) defaultHeight, (int) defaultWidth, (int) defaultHeight);
     }
 
-
-
-    public  void openSettings() throws MinesweeperException {
+    public void openSettings() throws MinesweeperException {
         new SettingsPanel(context);
 
     }
 
-    public void showRecordTable(){
+    public void showRecordTable() {
         new RecordPanel(context.getGame().getRecordsTable());
     }
 

@@ -20,13 +20,12 @@ public class MenuButtonsListener implements ActionListener {
 
         try {
             switch (((MenuButtons) e.getSource()).getType()) {
-                case FLAG -> context.setClick(!context.isClick());
                 case RESTART -> {
                     context.getGame().restartGame();
                     context.setNeedToRestart(false);
                     ((GamePanel) context.getWin().getCurPanel()).updatePanel();
                 }
-                case SETTINGS -> context.getWin().openSettings();
+                case SETTINGS ->context.getWin().openSettings();
                 case RECORD_TABLE -> context.getWin().showRecordTable();
             }
         } catch (MinesweeperException exception) {

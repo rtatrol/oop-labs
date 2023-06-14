@@ -41,8 +41,5 @@ public class Menu extends JMenu  {
         JMenuItem records = new JMenuItem("Рекорды");
         records.addActionListener(new MenuActionListener(context));
         add(records);
-
-        addSeparator();
-
     }
 }
