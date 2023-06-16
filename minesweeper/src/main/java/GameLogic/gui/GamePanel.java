@@ -28,13 +28,13 @@ public class GamePanel extends JPanel {
     private static final HashMap<Integer, BufferedImage> numberImageMap;
 
     private final JTextField timerField;
-
+    
      static {
         try {
             numberImageMap = new HashMap<>();
             numberImageMap.put(FLAG, ImageIO.read(Objects.requireNonNull(GamePanel.class.getResource("/flag.png"))));
             for (int i = 0; i <= 8; i++) {
-                numberImageMap.put(i, ImageIO.read(Objects.requireNonNull(GamePanel.class.getResource("/"+i + ".png"))));
+                numberImageMap.put(i, ImageIO.read(Objects.requireNonNull(GamePanel.class.getResource("/"+ i + ".png"))));
             }
            
             numberImageMap.put(BOOM, ImageIO.read(Objects.requireNonNull(GamePanel.class.getResource("/mine.png"))));
