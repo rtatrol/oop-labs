@@ -1,0 +1,8 @@
+{
+    "java.project.sourcePaths": [
+        "minesweeper/src/main/resources/minesweeper/gui",
+        "minesweeper/src/main/resources/minesweeper",
+        "minesweeper/src/main/java",
+        "minesweeper/src/main/resources"
+    ]
+}
