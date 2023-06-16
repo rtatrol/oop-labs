@@ -1,0 +1,6 @@
+15:15:02.054 [main] INFO  calculator.operations.Define - executing operation
+15:15:02.194 [main] INFO  calculator.operations.Division - executing operation
+15:15:02.207 [main] INFO  calculator.operations.Multiply - executing operation
+15:15:02.212 [main] INFO  calculator.operations.Sqrt - executing operation
+15:15:02.218 [main] INFO  calculator.operations.Subtraction - executing operation
+15:15:02.222 [main] INFO  calculator.operations.Sum - executing operation
